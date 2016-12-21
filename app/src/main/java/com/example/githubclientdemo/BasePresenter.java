@@ -12,6 +12,9 @@ public interface BasePresenter {
 
     void pause();
 
+    BaseView getView();
+    BaseSupplier getSupplier();
+
     void end();
 
 }

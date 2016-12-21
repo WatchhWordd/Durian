@@ -10,10 +10,13 @@ import com.google.android.agera.Supplier;
 
 public abstract class BaseSupplier<T> implements Supplier<Result<T>>{
 
-    protected BasePresenter presenter;
+    protected BasePresenter mPresenter;
 
+    public  BaseSupplier(){
+
+    }
     public BaseSupplier(BasePresenter presenter, MutableRepository supplier) {
-        this.presenter = presenter;
+        this.mPresenter = presenter;
     }
 
     public abstract Result<T> loadData();

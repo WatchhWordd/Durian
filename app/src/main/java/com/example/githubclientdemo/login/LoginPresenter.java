@@ -2,6 +2,8 @@ package com.example.githubclientdemo.login;
 
 import android.support.annotation.NonNull;
 
+import com.example.githubclientdemo.BaseSupplier;
+import com.example.githubclientdemo.BaseView;
 import com.example.githubclientdemo.entities.UserInfo;
 import com.google.android.agera.Receiver;
 import com.google.android.agera.Updatable;
@@ -34,6 +36,16 @@ public class LoginPresenter implements LoginContract.Presenter,Updatable,Receive
     @Override
     public void pause() {
 
+    }
+
+    @Override
+    public BaseView getView() {
+        return null;
+    }
+
+    @Override
+    public BaseSupplier getSupplier() {
+        return null;
     }
 
     @Override
