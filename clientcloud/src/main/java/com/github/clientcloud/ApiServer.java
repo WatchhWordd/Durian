@@ -6,6 +6,7 @@ import java.util.List;
 
 import io.reactivex.Observable;
 import okhttp3.OkHttpClient;
+import retrofit2.Retrofit;
 
 /**
  * @author zhangyb
@@ -14,6 +15,7 @@ import okhttp3.OkHttpClient;
  */
 
 public abstract class ApiServer {
+
 
     public interface Config {
 
@@ -39,6 +41,18 @@ public abstract class ApiServer {
         return builder;
     }
 
+    public Retrofit.Builder createRetrofitBuilder(Context context) {
+        return Observable.fromIterable(getIniterList())
+                .filter(initer -> initer instanceof RetrofitIniter)
+                .cast(RetrofitIniter.class)
+                .reduce(new Retrofit.Builder(),
+                        (builder, initer) -> initer.initialize(builder, this, context))
+                .blockingGet();
+    }
+
+    public Retrofit.Builder onRetrofitBuilderCreated(Retrofit.Builder builder, Context context){
+        return builder;
+    };
     public abstract List<String> getBaseUrlList();
 
     public abstract List<Initer> getIniterList();

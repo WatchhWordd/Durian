@@ -184,6 +184,75 @@ public class GitHubCloud {
         return builder.build();
     }
 
+    /* 创建Retrofit接口对象
+     *
+     * @param baseUrl           接口服务器的基础URL
+     * @param apiInterfaceClass Retrofit接口类的class对象
+     * @return Retrofit接口对象
+     */
+    public <T> T createRetrofitApi(String baseUrl, Class<T> apiInterfaceClass) {
+        Class<? extends ApiServer> apiServerClass = getApiServerClass(baseUrl);
+        checkNotNullApiServerClass(apiServerClass, baseUrl);
+        return createRetrofitApi(apiServerClass, baseUrl, apiInterfaceClass);
+    }
+
+    private <T> T createRetrofitApi(Class<? extends ApiServer> apiServerClass, String baseUrl,
+                                    Class<T> apiInterfaceClass) {
+        Retrofit retrofit = getRetrofit(apiServerClass, baseUrl);
+        if (retrofit == null) {
+            return null;
+        }
+
+        return retrofit.create(apiInterfaceClass);
+    }
+
+    /**
+     * 获取Retrofit实例对象
+     * Retrofit实例使用apiServerClass和baseUrl联合作为标识，并且会缓存以备重用
+     * 使用上述标识查询Retrofit实例对象
+     * 如果已经存在，则将其直接返回，反之创建新的Retrofit实例对象，并加入缓存
+     *
+     * @param apiServerClass 服务器配置类的class对象
+     * @param baseUrl        接口服务器的基础URL
+     * @return Retrofit实例对象
+     */
+    public Retrofit getRetrofit(Class<? extends ApiServer> apiServerClass, String baseUrl) {
+        Pair<Class<? extends ApiServer>, String> pair = Pair.create(apiServerClass, baseUrl);
+        Retrofit retrofit = retrofitMap.get(pair);
+
+        if (retrofit == null) {
+            retrofit = createRetrofit(apiServerClass, baseUrl);
+        }
+
+        if (retrofit != null) {
+            retrofitMap.put(pair, retrofit);
+        }
+
+        return retrofit;
+    }
+
+    private Retrofit createRetrofit(Class<? extends ApiServer> apiServerClass, String baseUrl) {
+        ApiServer apiServer = getApiServer(apiServerClass);
+        checkNotNullApiServer(apiServer, apiServerClass);
+        Context context = contextWeakReference.get();
+        Retrofit.Builder builder = apiServer.createRetrofitBuilder(context);
+        if (builder == null) {
+            return null;
+        }
+
+        OkHttpClient okHttpClient = getOkHttpClient(apiServerClass);
+        if (okHttpClient != null) {
+            builder.callFactory(okHttpClient);
+        }
+
+        if (baseUrl != null) {
+            builder.baseUrl(baseUrl);
+        }
+
+        builder = apiServer.onRetrofitBuilderCreated(builder, context);
+        return builder.build();
+    }
+
     /**
      * 获取服务器配置类实例
      *
