@@ -15,7 +15,11 @@ import okhttp3.OkHttpClient;
 
 public class AppServerHeadersIniter implements OkhttpIniter {
     @Override
-    public OkHttpClient.Builder initialize(OkHttpClient.Builder target, ApiServer apiServer, Context context) {
-        return null;
+    public OkHttpClient.Builder initialize(OkHttpClient.Builder target,
+                                           ApiServer apiServer, Context context) {
+        if (target ==null){
+            target = new OkHttpClient().newBuilder();
+        }
+        return target.addInterceptor(new AppServerHeadersInterceptor(apiServer));
     }
 }

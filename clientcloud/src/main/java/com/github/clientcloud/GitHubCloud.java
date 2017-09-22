@@ -89,7 +89,7 @@ public class GitHubCloud {
     }
 
     private void registerPresetApiServers() {
-        registerApiServer(new AppServer());
+        registerApiServer(new AppServerConfig());
     }
 
     /**

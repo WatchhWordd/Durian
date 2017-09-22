@@ -1,15 +1,15 @@
 package com.github.clientcloud;
 
 import com.github.clientcloud.appserver.AppServerHeadersIniter;
-import com.github.clientcloud.appserver.AppServerSignIniter;
-import com.github.clientcloud.appserver.CacheIniter;
-import com.github.clientcloud.appserver.GsonConverterIniter;
-import com.github.clientcloud.appserver.RxJava2CallAdapterIniter;
-import com.github.clientcloud.appserver.ScalarsConverterIniter;
-import com.github.clientcloud.appserver.TimeoutIniter;
-import com.github.clientcloud.appserver.TokenVerifierIniter;
-import com.github.clientcloud.appserver.UnsafeSslIniter;
-import com.github.clientcloud.appserver.ValidateEagerlyIniter;
+import com.github.clientcloud.commons.AppServerSignIniter;
+import com.github.clientcloud.commons.CacheIniter;
+import com.github.clientcloud.commons.GsonConverterIniter;
+import com.github.clientcloud.commons.RxJava2CallAdapterIniter;
+import com.github.clientcloud.commons.ScalarsConverterIniter;
+import com.github.clientcloud.commons.TimeoutIniter;
+import com.github.clientcloud.commons.TokenVerifierIniter;
+import com.github.clientcloud.commons.UnsafeSslIniter;
+import com.github.clientcloud.commons.ValidateEagerlyIniter;
 
 import java.util.Arrays;
 import java.util.List;
@@ -20,7 +20,7 @@ import java.util.List;
  * @date 2017/9/15
  */
 
-public class AppServer extends ApiServer {
+public class AppServerConfig extends ApiServer {
     @Override
     public List<String> getBaseUrlList() {
         return Arrays.asList(
