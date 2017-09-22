@@ -4,6 +4,7 @@ import com.github.clientcloud.appserver.AppServerHeadersIniter;
 import com.github.clientcloud.commons.AppServerSignIniter;
 import com.github.clientcloud.commons.CacheIniter;
 import com.github.clientcloud.commons.GsonConverterIniter;
+import com.github.clientcloud.commons.LoggerIniter;
 import com.github.clientcloud.commons.RxJava2CallAdapterIniter;
 import com.github.clientcloud.commons.ScalarsConverterIniter;
 import com.github.clientcloud.commons.TimeoutIniter;
@@ -33,6 +34,7 @@ public class AppServerConfig extends ApiServer {
                 new AppServerHeadersIniter(),
                 new AppServerSignIniter(),
                 new CacheIniter(),
+                new LoggerIniter(),
                 new UnsafeSslIniter(),
                 new TokenVerifierIniter(true),
                 new ScalarsConverterIniter(),
