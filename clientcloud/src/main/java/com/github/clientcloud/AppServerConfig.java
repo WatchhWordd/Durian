@@ -25,7 +25,7 @@ public class AppServerConfig extends ApiServer {
     @Override
     public List<String> getBaseUrlList() {
         return Arrays.asList(
-                "https://uhome.golab.net");
+                "https://api.github.com");
     }
 
     @Override

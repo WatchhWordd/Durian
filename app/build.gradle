@@ -20,6 +20,13 @@ android {
         }
     }
 
+    packagingOptions {
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INFrvices/javax.annotation.processing.Processor'
+        exclude 'META-INF/LICENSE'
+    }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -36,14 +43,19 @@ dependencies {
     compile "com.google.android.agera:agera:$rootProject.ageraLibrariesVersion"
 
     //retrofit
-    compile("com.squareup.retrofit2:retrofit:$rootProject.retrofitVersion") {
-        exclude module: 'okhttp'
-    }
+    compile "com.squareup.retrofit2:retrofit:$rootProject.retrofitVersion"
     compile "com.squareup.retrofit2:converter-gson:$rootProject.gsonConvertVersion"
     compile "com.squareup.okhttp3:okhttp:$rootProject.okHttpVersion"
+    compile "com.squareup.retrofit2:adapter-rxjava:$rootProject.retrofitAndrxJava"
+    compile "com.squareup.retrofit2:converter-scalars:$rootProject.retrofitScalarsConverter"
+
+    compile "io.reactivex.rxjava2:rxjava:$rootProject.rxjavaVersion"
+    compile "io.reactivex.rxjava2:rxandroid:$rootProject.rxandroidVersion"
+
 
     //dagger
     apt "com.squareup:javapoet:$rootProject.javapoetVersion"
     apt "com.google.dagger:dagger-compiler:$rootProject.daggerVersion"
     compile "com.google.dagger:dagger:$rootProject.daggerVersion"
+    compile project(':clientcloud')
 }

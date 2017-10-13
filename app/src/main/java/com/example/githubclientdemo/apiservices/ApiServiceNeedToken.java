@@ -2,7 +2,7 @@ package com.example.githubclientdemo.apiservices;
 
 import com.example.githubclientdemo.entities.UserInfo;
 
-import retrofit2.Call;
+import io.reactivex.Observable;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 
@@ -13,5 +13,5 @@ import retrofit2.http.Header;
 public interface ApiServiceNeedToken {
 
     @GET("/user")
-    Call<UserInfo> getUserInfoByAuthorizations(@Header("Authorization") String authorization);
+    Observable<UserInfo> getUserInfoByAuthorizations(@Header("Authorization") String authorization);
 }
