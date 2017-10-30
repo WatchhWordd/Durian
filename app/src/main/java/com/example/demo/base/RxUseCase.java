@@ -1,4 +1,4 @@
-package com.example.githubclientdemo.base;
+package com.example.demo.base;
 
 import android.database.Observable;
 

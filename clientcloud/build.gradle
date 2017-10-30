@@ -1,4 +1,4 @@
-apply plugin: 'com.android.application'
+apply plugin: 'com.android.library'
 apply plugin: 'me.tatarka.retrolambda'
 
 buildscript {
@@ -14,9 +14,8 @@ android {
     buildToolsVersion "26.0.1"
 
     defaultConfig {
-        applicationId "com.github.clientcloud"
         minSdkVersion 15
-        targetSdkVersion 26
+        targetSdkVersion 25
         versionCode 1
         versionName "1.0"
 
@@ -30,6 +29,9 @@ android {
         }
     }
 
+    packagingOptions {
+        exclude 'META-INF/rxjava.properties'
+    }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -48,10 +50,11 @@ dependencies {
     //retrofit
     compile "com.squareup.retrofit2:retrofit:$rootProject.retrofitVersion"
     compile "com.squareup.retrofit2:converter-gson:$rootProject.gsonConvertVersion"
+    compile "com.squareup.retrofit2:adapter-rxjava:$rootProject.retrofitAndrxJava"
+    compile "com.squareup.retrofit2:converter-scalars:$rootProject.retrofitScalarsConverter"
     compile "com.squareup.okhttp3:okhttp:$rootProject.okHttpVersion"
+    compile "com.squareup.okhttp3:logging-interceptor:$rootProject.okHttpVersion"
 
     compile "io.reactivex.rxjava2:rxjava:$rootProject.rxjavaVersion"
     compile "io.reactivex.rxjava2:rxandroid:$rootProject.rxandroidVersion"
-    compile "com.squareup.retrofit2:adapter-rxjava:$rootProject.retrofitAndrxJava"
-    compile "com.squareup.retrofit2:converter-scalars:$rootProject.retrofitScalarsConverter"
 }

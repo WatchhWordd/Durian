@@ -1,8 +1,6 @@
-package com.example.githubclientdemo;
+package com.example.demo;
 
 import android.app.Application;
-
-import com.example.githubclientdemo.component.CommonComponent;
 
 /**
  * Created by zhangyb on 2016/12/20.
@@ -10,7 +8,6 @@ import com.example.githubclientdemo.component.CommonComponent;
 
 public class MyApplication extends Application {
 
-    private CommonComponent netComponent;
 
     @Override
     public void onCreate() {
