@@ -13,7 +13,7 @@ import io.reactivex.Observable;
  * @date 2017/11/2
  */
 
-public class GetUserInfo extends RxUseCase<GetUserInfo.Request, GetUserInfo.Response> {
+public class GetUserInfo extends RxUseCase<String, GetUserInfo.Response> {
 
     private GitDataSource gitDataSource;
 
@@ -22,16 +22,8 @@ public class GetUserInfo extends RxUseCase<GetUserInfo.Request, GetUserInfo.Resp
     }
 
     @Override
-    protected Observable<Response> buildUseCaseObservable(GetUserInfo.Request requestValues) {
+    protected Observable<Response> buildUseCaseObservable(String requestValues) {
         return gitDataSource.getPostList(requestValues);
-    }
-
-    public static class Request implements RxUseCase.RequestValues {
-        String credentials;
-
-        public Request(String credentials) {
-            this.credentials = credentials;
-        }
     }
 
     public static class Response implements RxUseCase.ResponseValue {

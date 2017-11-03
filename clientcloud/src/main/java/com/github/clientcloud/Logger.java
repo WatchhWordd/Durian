@@ -12,7 +12,7 @@ public class Logger {
     /**
      * 日志输出时的TAG
      */
-    private static String mTag = "logger";
+    private static String mTag = "okhttp";
     /**
      * 日志输出级别NONE
      */
@@ -130,7 +130,7 @@ public class Logger {
      */
     public static void sf(String msg) {
         if (debuggable >= LEVEL_ERROR) {
-            System.out.println("----------" + msg + "----------");
+            Log.e(mTag, msg);
         }
     }
 

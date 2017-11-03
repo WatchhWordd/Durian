@@ -1,4 +1,4 @@
-package com.example.demo.presentation;
+package com.example.demo.base.utils;
 
 import android.content.Context;
 import android.support.v7.app.AlertDialog;

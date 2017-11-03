@@ -16,7 +16,7 @@ import com.example.demo.GitDataInjection;
 import com.example.demo.MainActivity;
 import com.example.demo.R;
 import com.example.demo.data.net.bean.UserInfo;
-import com.example.demo.presentation.SystemUtil;
+import com.example.demo.base.utils.SystemUtil;
 
 /**
  * @author zhangyb
@@ -93,7 +93,7 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
 
     @Override
     public void onLoginFailed(Throwable error) {
-
+        dismissLoginDialog();
     }
 
     @Override

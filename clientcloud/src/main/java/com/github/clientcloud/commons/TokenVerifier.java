@@ -6,7 +6,6 @@ import android.support.v4.content.LocalBroadcastManager;
 
 import com.github.clientcloud.ApiServer;
 import com.github.clientcloud.Utils;
-import com.github.clientcloud.commons.CommonResponse;
 import com.google.gson.Gson;
 
 import java.io.IOException;
@@ -48,9 +47,19 @@ class TokenVerifier implements Interceptor {
     }
 
     @Override
-    public Response intercept(Chain chain) throws IOException {
-        Response response = chain.proceed(chain.request());
-        String bodyString = Utils.getResponseBodyAsString(response);
+    public Response intercept(Chain chain){
+        Response response = null;
+        try {
+            response = chain.proceed(chain.request());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        String bodyString = null;
+        try {
+            bodyString = Utils.getResponseBodyAsString(response);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         try {
             CommonResponse commonResponse = new Gson().fromJson(bodyString, CommonResponse.class);

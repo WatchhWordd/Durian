@@ -28,7 +28,6 @@ public abstract class ApiServer {
         String ACCESS_TOKEN = "accessToken";
         String LANGUAGE = "language";
         String TIMEZONE = "timeZone";
-        String CLIENT_ID = "uuid";
     }
 
     private static final BiFunction<String, String, Boolean> DEFAULT_IS_USE_DEFAULT_CONFIG_FUNCTION =

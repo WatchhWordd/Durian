@@ -4,6 +4,9 @@ import android.app.ActivityManager;
 import android.app.Application;
 import android.content.Context;
 
+import com.example.demo.base.utils.CommonUtils;
+import com.example.demo.base.utils.CommonUtilsLoader;
+import com.github.clientcloud.ApiServer;
 import com.github.clientcloud.GitHubCloud;
 
 import java.util.List;
@@ -35,7 +38,15 @@ public class GitApplication extends Application {
     }
 
     private void initNetCloud() {
+        CommonUtils.setCommonLoaderImpl(new CommonUtilsLoader());
         GitHubCloud.getInitializer().setContext(context).setEnablePresetApiServers(true).init();
+        ApiServer.setDefaultConfig(ApiServer.Config.CONTENT_TYPE, "application/json; charset=UTF-8");
+        ApiServer.setDefaultConfig(ApiServer.Config.ACCESS_TOKEN, "");
+        ApiServer.setDefaultConfig(ApiServer.Config.APP_ID, CommonUtils.getAppId(this));
+        ApiServer.setDefaultConfig(ApiServer.Config.APP_VERSION, CommonUtils.getVersionName(this));
+        ApiServer.setDefaultConfig(ApiServer.Config.APP_KEY, CommonUtils.getAppKey(this));
+        ApiServer.setDefaultConfig(ApiServer.Config.LANGUAGE, "zh-cn");
+        ApiServer.setDefaultConfig(ApiServer.Config.TIMEZONE, "8");
     }
 
     public static String getProcessName(Context context, int pid) {

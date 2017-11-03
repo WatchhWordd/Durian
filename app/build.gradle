@@ -44,13 +44,4 @@ dependencies {
 
     testCompile 'junit:junit:4.12'
     compile project(':clientcloud')
-    //retrofit
-    compile "com.squareup.retrofit2:retrofit:$rootProject.retrofitVersion"
-    compile "com.squareup.retrofit2:converter-gson:$rootProject.gsonConvertVersion"
-    compile "com.squareup.retrofit2:adapter-rxjava:$rootProject.retrofitAndrxJava"
-    compile "com.squareup.retrofit2:converter-scalars:$rootProject.retrofitScalarsConverter"
-    compile "com.squareup.okhttp3:okhttp:$rootProject.okHttpVersion"
-    compile "com.squareup.okhttp3:logging-interceptor:$rootProject.okHttpVersion"
-    compile "io.reactivex.rxjava2:rxjava:$rootProject.rxjavaVersion"
-    compile "io.reactivex.rxjava2:rxandroid:$rootProject.rxandroidVersion"
 }

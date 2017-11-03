@@ -42,7 +42,7 @@ public class LoginPresenter implements LoginContract.Presenter {
     @Override
     public void fetchUserInfoByUserName(String userName, String password) {
         String credential = Credentials.basic(userName, password);
-        getUserInfo.executeUseCase(new GetUserInfo.Request(credential))
+        getUserInfo.executeUseCase(credential)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<GetUserInfo.Response>() {

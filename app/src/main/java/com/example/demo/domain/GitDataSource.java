@@ -12,5 +12,5 @@ import io.reactivex.Observable;
 
 public interface GitDataSource {
 
-    Observable<GetUserInfo.Response> getPostList(GetUserInfo.Request requestValues);
+    Observable<GetUserInfo.Response> getPostList(String requestValues);
 }

@@ -52,7 +52,6 @@ class AppServerHeadersInterceptor implements Interceptor {
                 pair("appId", () -> apiServer.getConfig(ApiServer.Config.APP_ID)),
                 pair("appVersion", () -> apiServer.getConfig(ApiServer.Config.APP_VERSION)),
                 pair("appKey", () -> apiServer.getConfig(ApiServer.Config.APP_KEY)),
-                pair("clientId", () -> apiServer.getConfig(ApiServer.Config.CLIENT_ID)),
                 pair("accessToken", () -> apiServer.getConfig(ApiServer.Config.ACCESS_TOKEN)),
                 pair("sequenceId", () -> generateNextSequenceId(timestamp)),
                 pair("timestamp", () -> timestamp))
