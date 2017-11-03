@@ -1,6 +1,7 @@
 package com.example.demo.base;
 
-import android.database.Observable;
+
+import io.reactivex.Observable;
 
 /**
  * @author zhangyb

@@ -13,6 +13,7 @@ import com.github.clientcloud.commons.UnsafeSslIniter;
 import com.github.clientcloud.commons.ValidateEagerlyIniter;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -24,8 +25,7 @@ import java.util.List;
 public class AppServerConfig extends ApiServer {
     @Override
     public List<String> getBaseUrlList() {
-        return Arrays.asList(
-                "https://api.github.com");
+        return Collections.singletonList("https://api.github.com");
     }
 
     @Override

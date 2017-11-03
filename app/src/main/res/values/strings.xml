@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">GithubClientDemoTest</string>
+
+    <string name="login_load">正在登陆中</string>
 </resources>

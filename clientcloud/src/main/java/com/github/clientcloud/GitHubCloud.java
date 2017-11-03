@@ -33,6 +33,18 @@ public class GitHubCloud {
     private final Map<Pair<Class<? extends ApiServer>, String>, Retrofit> retrofitMap = new HashMap<>();
 
 
+    public static GitHubCloud.Initialize getInitializer() {
+        return new GitHubCloud.Initialize();
+    }
+
+    public static GitHubCloud getInstance() {
+        if (!GitHubCloud.SingletonHolder.isInitialized.get()) {
+            throw new IllegalStateException("ERROR! Not initialized!");
+        } else {
+            return GitHubCloud.SingletonHolder.instance;
+        }
+    }
+
     private static class SingletonHolder {
         static AtomicBoolean isInitialized = new AtomicBoolean(false);
         static GitHubCloud instance = new GitHubCloud();
@@ -196,8 +208,8 @@ public class GitHubCloud {
         return createRetrofitApi(apiServerClass, baseUrl, apiInterfaceClass);
     }
 
-    private <T> T createRetrofitApi(Class<? extends ApiServer> apiServerClass, String baseUrl,
-                                    Class<T> apiInterfaceClass) {
+    public <T> T createRetrofitApi(Class<? extends ApiServer> apiServerClass, String baseUrl,
+                                   Class<T> apiInterfaceClass) {
         Retrofit retrofit = getRetrofit(apiServerClass, baseUrl);
         if (retrofit == null) {
             return null;
