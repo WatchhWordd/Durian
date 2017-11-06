@@ -4,8 +4,10 @@ import android.app.ActivityManager;
 import android.app.Application;
 import android.content.Context;
 
+import com.baoyz.treasure.Treasure;
 import com.example.demo.base.utils.CommonUtils;
 import com.example.demo.base.utils.CommonUtilsLoader;
+import com.example.demo.base.utils.PreferenceService;
 import com.github.clientcloud.ApiServer;
 import com.github.clientcloud.GitHubCloud;
 
@@ -35,6 +37,15 @@ public class GitApplication extends Application {
 
     private void initCommonponent() {
         initNetCloud();
+        initAppModule();
+    }
+
+    private void initAppModule() {
+        initPreference();
+    }
+
+    private void initPreference() {
+        Treasure.get(this, PreferenceService.class);
     }
 
     private void initNetCloud() {

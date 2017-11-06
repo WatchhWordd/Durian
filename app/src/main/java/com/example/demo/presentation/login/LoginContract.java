@@ -23,7 +23,7 @@ public class LoginContract {
 
         void onLoginSuccess(UserInfo userInfo);
 
-        void onLoginFailed(Throwable error);
+        void onLoginFailed(String error);
 
         void jumpToMain();
     }
@@ -37,5 +37,7 @@ public class LoginContract {
         void saveBasicLoginInfo(String loginAccount, String basicCredential);
 
         void cancelRequest();
+
+        void saveData(UserInfo data);
     }
 }

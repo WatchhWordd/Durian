@@ -10,15 +10,22 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.example.demo.MainActivity"
-            android:launchMode="singleTask">
+        <activity
+            android:name="com.example.demo.presentation.welcome.WelcomeActivity"
+            android:launchMode="singleTask"
+            android:theme="@style/AppTheme.BrandedLaunch">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".presentation.login.LoginActivity"></activity>
+        <activity
+            android:name=".MainActivity"
+            android:launchMode="singleTask"></activity>
+        <activity
+            android:name=".presentation.login.LoginActivity"
+            android:launchMode="singleTask"></activity>
 
         <meta-data
             android:name="APP_ID"

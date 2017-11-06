@@ -1,7 +1,12 @@
 package com.example.demo.presentation.login;
 
 import android.content.Context;
+import android.text.TextUtils;
 
+import com.baoyz.treasure.Treasure;
+import com.example.demo.base.utils.ACache;
+import com.example.demo.base.utils.ConfigUtil;
+import com.example.demo.base.utils.PreferenceService;
 import com.example.demo.data.net.bean.UserInfo;
 import com.example.demo.domain.usecase.GetUserInfo;
 
@@ -25,11 +30,16 @@ public class LoginPresenter implements LoginContract.Presenter {
     private GetUserInfo getUserInfo;
     private CompositeDisposable compositeDisposable;
 
+    private PreferenceService preferenceService;
+    private ACache aCache;
+
     public LoginPresenter(LoginContract.View loginView, Context context,
                           GetUserInfo getUserInfo) {
         this.loginView = loginView;
         this.context = context;
         this.getUserInfo = getUserInfo;
+        this.preferenceService = Treasure.get(this.context, PreferenceService.class);
+        this.aCache = ACache.get(this.context);
         this.loginView.setPresenter(this);
         compositeDisposable = new CompositeDisposable();
     }
@@ -56,15 +66,16 @@ public class LoginPresenter implements LoginContract.Presenter {
 
                         UserInfo userInfo = response.getUserInfo();
                         if (userInfo == null) {
-                            loginView.onLoginFailed(null);
+                            loginView.onLoginFailed("登录失败");
                         } else {
+                            saveBasicLoginInfo(userName, credential);
                             loginView.onLoginSuccess(userInfo);
                         }
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        loginView.onLoginFailed(e);
+                        loginView.onLoginFailed("登录失败");
                     }
 
                     @Override
@@ -76,16 +87,25 @@ public class LoginPresenter implements LoginContract.Presenter {
 
     @Override
     public boolean whetherNeedLog() {
-        return false;
+        return TextUtils.isEmpty(preferenceService.getBasicCredential());
     }
 
     @Override
     public void saveBasicLoginInfo(String loginAccount, String basicCredential) {
-
+        preferenceService.setUsername(loginAccount);
+        preferenceService.setLoginAccount(loginAccount);
+        if (whetherNeedLog()) {//认证需要重置
+            preferenceService.setBasicCredential(basicCredential);
+        }
     }
 
     @Override
     public void cancelRequest() {
         compositeDisposable.clear();
+    }
+
+    @Override
+    public void saveData(UserInfo data) {
+      aCache.put(ConfigUtil.S_USER_INFO,data);
     }
 }

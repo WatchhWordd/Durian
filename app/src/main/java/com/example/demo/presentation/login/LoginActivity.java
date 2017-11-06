@@ -11,16 +11,17 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.example.demo.GitDataInjection;
 import com.example.demo.MainActivity;
 import com.example.demo.R;
+import com.example.demo.base.utils.ConfigUtil;
 import com.example.demo.data.net.bean.UserInfo;
-import com.example.demo.base.utils.SystemUtil;
 
 /**
  * @author zhangyb
- * @description
+ * @description 登录模块
  * @date 2017/11/2
  */
 
@@ -63,7 +64,7 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
     public void showLoginDialog() {
 
         if (loadDialog == null) {
-            loadDialog = SystemUtil.getAndShowLoadingDialog(this, getString(R.string.login_load));
+            loadDialog = ConfigUtil.getAndShowLoadingDialog(this, getString(R.string.login_load));
         }
         loadDialog.show();
     }
@@ -92,8 +93,10 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
     }
 
     @Override
-    public void onLoginFailed(Throwable error) {
-        dismissLoginDialog();
+    public void onLoginFailed(String error) {
+        dismissLoginDialog();;
+        Toast.makeText(this, error, Toast.LENGTH_LONG)
+                .show();
     }
 
     @Override

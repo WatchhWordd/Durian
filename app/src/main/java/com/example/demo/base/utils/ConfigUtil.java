@@ -12,7 +12,9 @@ import com.example.demo.R;
  * @date 2017/11/2
  */
 
-public class SystemUtil {
+public class ConfigUtil {
+
+    public static final String S_USER_INFO = "user_info_obj";
 
     public static AlertDialog getAndShowLoadingDialog(Context context, String content){
         AlertDialog loadingDialog = new AlertDialog.Builder(context).create();

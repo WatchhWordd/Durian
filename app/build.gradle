@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'me.tatarka.retrolambda'
+apply plugin: 'com.neenbedankt.android-apt'
 
 android {
     compileSdkVersion 26
@@ -43,5 +44,10 @@ dependencies {
     compile 'com.android.support:design:26.+'
 
     testCompile 'junit:junit:4.12'
+    // apt based preference
+    compile dep.treasure
+    apt dep.treasureAnnotation
+
+    compile dep.glide
     compile project(':clientcloud')
 }
