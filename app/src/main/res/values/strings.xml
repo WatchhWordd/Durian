@@ -1,5 +1,46 @@
 <resources>
-    <string name="app_name">GithubClientDemoTest</string>
+    <string name="app_name">Durian</string>
 
     <string name="login_load">正在登陆中</string>
+    <!-- Strings related to login -->
+    <string name="prompt_username">User Name</string>
+    <string name="prompt_password">Password (optional)</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email completions."</string>
+
+
+    <string name="open_string">open</string>
+    <string name="close_string">close</string>
+    <string name="main_title_suffix">%1$s\'s github</string>
+    <string name="main_sub_title_suffix">%1$s\'s id:%2$s</string>
+
+    <string name="main_nav_overview">OverView</string>
+    <string name="main_nav_repositories">Repositories</string>
+    <string name="main_nav_stars">Stars</string>
+    <string name="main_nav_followers">Followers</string>
+    <string name="main_nav_following">Following</string>
+
+    <string name="over_view_popular_repo">Popular repositories</string>
+    <string name="over_view_contributions">Contributions in the last year</string>
+    <string name="over_view_events">Events</string>
+
+    <string name="event_text_on">on</string>
+    <string name="event_text_in">in</string>
+    <string name="event_text_desc">description</string>
+    <string name="event_text_action">action</string>
+    <string name="event_text_commits">%1$s commit(s)</string>
+
+
+    <string name="event_text_pull_num">number</string>
+    <string name="event_text_pull_url">pull url:</string>
+
+    <string name="event_text_exit_app">exit app</string>
+    <string name="event_text_exit_warning">warning</string>
+    <string name="event_text_exit_content">Are you sure to logout?</string>
+    <string name="event_text_exit_yes">Yes,logout</string>
 </resources>

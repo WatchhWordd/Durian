@@ -5,6 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/Durian.iml" filepath="$PROJECT_DIR$/Durian.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/clientcloud/clientcloud.iml" filepath="$PROJECT_DIR$/clientcloud/clientcloud.iml" />
+      <module fileurl="file://$PROJECT_DIR$/durianlogger/gitlogger.iml" filepath="$PROJECT_DIR$/durianlogger/gitlogger.iml" />
     </modules>
   </component>
 </project>

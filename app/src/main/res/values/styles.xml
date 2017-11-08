@@ -9,7 +9,7 @@
     </style>
 
     <style name="AppTheme.BrandedLaunch" parent="AppTheme">
-        <item name="android:windowBackground">@drawable/guide</item>
+        <item name="android:windowBackground">@drawable/ic_app_guide</item>
     </style>
 
 

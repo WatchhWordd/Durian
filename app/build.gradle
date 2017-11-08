@@ -6,7 +6,7 @@ android {
     compileSdkVersion 26
     buildToolsVersion "26.0.1"
     defaultConfig {
-        applicationId 'com.example.demo'
+        applicationId 'com.durian.demo'
         minSdkVersion 15
         targetSdkVersion 25
         versionCode 1
@@ -50,4 +50,5 @@ dependencies {
 
     compile dep.glide
     compile project(':clientcloud')
+    compile project(':durianlogger')
 }

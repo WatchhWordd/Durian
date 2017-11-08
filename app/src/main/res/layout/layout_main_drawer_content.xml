@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_10dp">
+
+        <ImageView
+            android:id="@+id/id_main_drawer_avatar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:clickable="true"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/id_main_drawer_avatar"
+            android:layout_marginLeft="@dimen/spacing_10dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/id_main_drawer_user_account"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_perm_identity_white_24dp"
+                android:gravity="center_vertical"/>
+
+            <TextView
+                android:id="@+id/id_main_drawer_user_org"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_business_white_24dp"
+                android:gravity="center_vertical"/>
+
+            <TextView
+                android:id="@+id/id_main_drawer_user_position"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_room_white_24dp"
+                android:gravity="center_vertical"/>
+
+            <TextView
+                android:id="@+id/id_main_drawer_user_join_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_date_range_white_24dp"
+                android:gravity="center_vertical"/>
+        </LinearLayout>
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/colorPrimary"/>
+
+    <LinearLayout
+        android:id="@+id/id_main_drawer_navigation_menu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/id_main_drawer_item_menu_overview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/item_layout_selector"
+            android:clickable="true"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_home_white_36dp"
+                android:gravity="center"
+                android:text="@string/main_nav_overview"/>
+
+            <ImageView
+                android:id="@+id/id_main_drawer_status_item_menu_overview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:src="@drawable/ic_arrow_forward_white_36dp"
+                android:visibility="invisible"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/id_main_drawer_item_menu_repositories"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/item_layout_selector"
+            android:clickable="true"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_poll_white_36dp"
+                android:gravity="center"
+                android:text="@string/main_nav_repositories"/>
+
+            <ImageView
+                android:id="@+id/id_main_drawer_status_item_menu_repositories"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:src="@drawable/ic_arrow_forward_white_36dp"
+                android:visibility="invisible"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/id_main_drawer_item_menu_stars"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/item_layout_selector"
+            android:clickable="true"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_stars_white_36dp"
+                android:gravity="center"
+                android:text="@string/main_nav_stars"/>
+
+            <ImageView
+                android:id="@+id/id_main_drawer_status_item_menu_stars"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:src="@drawable/ic_arrow_forward_white_36dp"
+                android:visibility="invisible"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/id_main_drawer_item_menu_followers"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/item_layout_selector"
+            android:clickable="true"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_people_outline_white_36dp"
+                android:gravity="center"
+                android:text="@string/main_nav_followers"/>
+
+            <ImageView
+                android:id="@+id/id_main_drawer_status_item_menu_followers"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:src="@drawable/ic_arrow_forward_white_36dp"
+                android:visibility="invisible"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/id_main_drawer_item_menu_following"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/item_layout_selector"
+            android:clickable="true"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_people_white_36dp"
+                android:gravity="center"
+                android:text="@string/main_nav_following"/>
+
+            <ImageView
+                android:id="@+id/id_main_drawer_status_item_menu_following"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:src="@drawable/ic_arrow_forward_white_36dp"
+                android:visibility="invisible"/>
+        </RelativeLayout>
+    </LinearLayout>
+
+</LinearLayout>
