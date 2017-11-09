@@ -1,7 +1,9 @@
 package com.durian.demo.presentation.main;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -17,6 +19,10 @@ import com.durian.demo.R;
 import com.durian.demo.data.net.bean.UserInfo;
 import com.durian.demo.presentation.main.widget.MainDrawerListener;
 import com.durian.demo.presentation.overview.OverViewFragment;
+import com.durian.demo.presentation.repositories.RepositoriesFragment;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements MainContract.View, DrawerLayout.DrawerListener {
 
@@ -24,6 +30,11 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
 
     private Toolbar toolbar;
     private DrawerLayout drawerLayout;
+
+    private View overViewLayout;
+    private ImageView overView;
+    private View repositoriesLayout;
+    private ImageView repositoriesView;
 
     UserInfo userInfo;
 
@@ -52,21 +63,41 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         initTabLayout();
         initDrawerLayout();
         initContentLayout();
+        setupFragments();
+        overViewLayout.setSelected(true);
+        overView.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void setupFragments() {
+        appendFragments();
+    }
+
+    @SuppressLint("RestrictedApi")
+    @Override
+    public void appendFragments() {
+        if (getSupportFragmentManager().getFragments()
+                .size() >= 4) {//如果已加载的fragment数目大于等于4，则说明无需再append
+            return;
+        }
         FragmentTransaction transaction =
                 getSupportFragmentManager().beginTransaction();
         transaction.add(R.id.id_main_fragment_container,
                 OverViewFragment.newInstance(userInfo.getLogin(), "subject"),
                 OverViewFragment.class.getSimpleName());
+        transaction.add(R.id.id_main_fragment_container,
+                RepositoriesFragment.newInstance(userInfo.getLogin(), "subject"), RepositoriesFragment.class
+                        .getSimpleName());
+//        transaction.add(R.id.id_main_fragment_container,
+//                StarsFragment.newInstance(mUserInfo.login, "subject"), StarsFragment.class
+//                        .getSimpleName());
+//        transaction.add(R.id.fragment_container,
+//                FollowersFragment.newInstance(mUserInfo.login, "subject"), FollowersFragment.class
+//                        .getSimpleName());
+//        transaction.add(R.id.fragment_container,
+//                FollowingFragment.newInstance(mUserInfo.login, "subject"), FollowingFragment.class
+//                        .getSimpleName());
         transaction.commit();
-    }
-
-    @Override
-    public void appendFragments() {
-
     }
 
     private void initTabLayout() {
@@ -108,11 +139,11 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     }
 
     private void initContentView() {
-        View overViewLayout = findViewById(R.id.id_main_drawer_item_menu_overview);
-        ImageView overView = (ImageView) findViewById(R.id.id_main_drawer_status_item_menu_overview);
+        overViewLayout = findViewById(R.id.id_main_drawer_item_menu_overview);
+        overView = (ImageView) findViewById(R.id.id_main_drawer_status_item_menu_overview);
 
-        View repositoriesLayout = findViewById(R.id.id_main_drawer_item_menu_repositories);
-        ImageView repositoriesView = (ImageView) findViewById(R.id.id_main_drawer_status_item_menu_repositories);
+        repositoriesLayout = findViewById(R.id.id_main_drawer_item_menu_repositories);
+        repositoriesView = (ImageView) findViewById(R.id.id_main_drawer_status_item_menu_repositories);
 
         View starsLayout = findViewById(R.id.id_main_drawer_item_menu_stars);
         ImageView starsView = (ImageView) findViewById(R.id.id_main_drawer_status_item_menu_stars);
@@ -122,6 +153,48 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
 
         View followingLayout = findViewById(R.id.id_main_drawer_item_menu_following);
         ImageView followingView = (ImageView) findViewById(R.id.id_main_drawer_status_item_menu_following);
+
+        overViewLayout.setOnClickListener(view ->
+                navigateItemSelected(R.id.id_main_drawer_item_menu_overview));
+        repositoriesLayout.setOnClickListener(view ->
+                navigateItemSelected(R.id.id_main_drawer_item_menu_repositories));
+    }
+
+    private void navigateItemSelected(int i) {
+        overView.setVisibility(View.INVISIBLE);
+        overViewLayout.setSelected(false);
+        repositoriesView.setVisibility(View.INVISIBLE);
+        repositoriesLayout.setSelected(false);
+        if (i == R.id.id_main_drawer_item_menu_overview) {
+            overView.setVisibility(View.VISIBLE);
+            overViewLayout.setSelected(true);
+            navigateToFragment(OverViewFragment.class.getSimpleName());
+            setTitle(String.format(getString(R.string.main_title_suffix), userInfo.getName()));
+        } else if (i == R.id.id_main_drawer_item_menu_repositories) {
+            repositoriesView.setVisibility(View.VISIBLE);
+            repositoriesLayout.setSelected(true);
+            navigateToFragment(RepositoriesFragment.class.getSimpleName());
+            setTitle(R.string.main_nav_repositories);
+        }
+    }
+
+    private void navigateToFragment(String tag) {
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        Fragment toShow = getSupportFragmentManager().findFragmentByTag(tag);
+        List<Fragment> toHideList = new ArrayList<>(getSupportFragmentManager().getFragments());
+        if (toShow == null) {
+            return;
+        } else if (toHideList.contains(toShow)) {
+            toHideList.remove(toShow);
+            transaction.show(toShow);
+        }
+        if (!toHideList.isEmpty()) {
+            for (Fragment fragment : toHideList) {
+                transaction.hide(fragment);
+            }
+        }
+        transaction.commit();
+        drawerLayout.closeDrawers();
     }
 
     @Override
