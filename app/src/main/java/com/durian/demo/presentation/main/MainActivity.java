@@ -14,8 +14,6 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.durian.demo.R;
-import com.durian.demo.base.utils.ACache;
-import com.durian.demo.base.utils.ConfigUtil;
 import com.durian.demo.data.net.bean.UserInfo;
 import com.durian.demo.presentation.main.widget.MainDrawerListener;
 import com.durian.demo.presentation.overview.OverViewFragment;
@@ -33,10 +31,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        userInfo = (UserInfo) ACache.get(this).getAsObject(ConfigUtil.S_USER_INFO);
-        if (userInfo == null) {
-            userInfo = (UserInfo) getIntent().getSerializableExtra("userInfo");
-        }
+        userInfo = (UserInfo) getIntent().getSerializableExtra("userInfo");
         initViews();
         new MainPresenter(this);
         presenter.start();
@@ -105,9 +100,6 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
             Glide.with(this).load(userInfo.getAvatarUrl())
                     .error(R.drawable.ic_perm_identity_white_24dp)
                     .into(avatarView);
-            setTitle(String.format(getString(R.string.main_title_suffix), userInfo.getName()));
-            toolbar.setSubtitle(String.format(getString(R.string.main_sub_title_suffix), userInfo.getName(),
-                    String.valueOf(userInfo.getId())));
             nameView.setText(userInfo.getName());
             orgView.setText(userInfo.getCompany());
             positionView.setText(userInfo.getLocation());
@@ -135,7 +127,6 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        //noinspection SimplifiableIfStatement
         if (id == android.R.id.home) {
             if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
                 drawerLayout.closeDrawers();

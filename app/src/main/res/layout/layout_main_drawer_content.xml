@@ -11,10 +11,11 @@
 
         <ImageView
             android:id="@+id/id_main_drawer_avatar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_centerHorizontal="true"
-            android:clickable="true"/>
+            android:clickable="true"
+            android:scaleType="fitXY"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -28,28 +29,37 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawableLeft="@drawable/ic_perm_identity_white_24dp"
-                android:gravity="center_vertical"/>
+                android:drawablePadding="@dimen/spacing_4dp"
+                android:gravity="center_vertical"
+                android:textColor="@android:color/white"/>
 
             <TextView
                 android:id="@+id/id_main_drawer_user_org"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawableLeft="@drawable/ic_business_white_24dp"
-                android:gravity="center_vertical"/>
+                android:drawablePadding="@dimen/spacing_4dp"
+                android:gravity="center_vertical"
+                android:textColor="@android:color/white"/>
 
             <TextView
                 android:id="@+id/id_main_drawer_user_position"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawableLeft="@drawable/ic_room_white_24dp"
-                android:gravity="center_vertical"/>
+                android:drawablePadding="@dimen/spacing_4dp"
+                android:gravity="center_vertical"
+                android:textColor="@android:color/white"/>
 
             <TextView
                 android:id="@+id/id_main_drawer_user_join_date"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawableLeft="@drawable/ic_date_range_white_24dp"
-                android:gravity="center_vertical"/>
+                android:drawablePadding="@dimen/spacing_4dp"
+                android:gravity="center_vertical"
+                android:textColor="@android:color/white"
+                android:maxLines="1"/>
         </LinearLayout>
     </RelativeLayout>
 
@@ -77,8 +87,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:drawableLeft="@drawable/ic_home_white_36dp"
+                android:drawablePadding="@dimen/spacing_4dp"
                 android:gravity="center"
-                android:text="@string/main_nav_overview"/>
+                android:text="@string/main_nav_overview"
+                android:textColor="@android:color/white"/>
 
             <ImageView
                 android:id="@+id/id_main_drawer_status_item_menu_overview"
@@ -102,8 +114,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:drawableLeft="@drawable/ic_poll_white_36dp"
+                android:drawablePadding="@dimen/spacing_4dp"
                 android:gravity="center"
-                android:text="@string/main_nav_repositories"/>
+                android:text="@string/main_nav_repositories"
+                android:textColor="@android:color/white"/>
 
             <ImageView
                 android:id="@+id/id_main_drawer_status_item_menu_repositories"
@@ -127,8 +141,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:drawableLeft="@drawable/ic_stars_white_36dp"
+                android:drawablePadding="@dimen/spacing_4dp"
                 android:gravity="center"
-                android:text="@string/main_nav_stars"/>
+                android:text="@string/main_nav_stars"
+                android:textColor="@android:color/white"/>
 
             <ImageView
                 android:id="@+id/id_main_drawer_status_item_menu_stars"
@@ -152,8 +168,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:drawableLeft="@drawable/ic_people_outline_white_36dp"
+                android:drawablePadding="@dimen/spacing_4dp"
                 android:gravity="center"
-                android:text="@string/main_nav_followers"/>
+                android:text="@string/main_nav_followers"
+                android:textColor="@android:color/white"/>
 
             <ImageView
                 android:id="@+id/id_main_drawer_status_item_menu_followers"
@@ -177,8 +195,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:drawableLeft="@drawable/ic_people_white_36dp"
+                android:drawablePadding="@dimen/spacing_4dp"
                 android:gravity="center"
-                android:text="@string/main_nav_following"/>
+                android:text="@string/main_nav_following"
+                android:textColor="@android:color/white"/>
 
             <ImageView
                 android:id="@+id/id_main_drawer_status_item_menu_following"

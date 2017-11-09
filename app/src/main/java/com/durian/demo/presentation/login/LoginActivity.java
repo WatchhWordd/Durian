@@ -89,6 +89,7 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
     @Override
     public void onLoginSuccess(UserInfo userInfo) {
         this.userInfo = userInfo;
+        presenter.saveData(userInfo);
         jumpToMain();
     }
 

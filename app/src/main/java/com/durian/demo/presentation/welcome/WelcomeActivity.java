@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.baoyz.treasure.Treasure;
+import com.durian.demo.base.utils.ConfigUtil;
 import com.durian.demo.presentation.main.MainActivity;
 import com.durian.demo.R;
 import com.durian.demo.base.utils.ACache;
@@ -49,8 +50,8 @@ public class WelcomeActivity extends AppCompatActivity implements WelcomeContrac
     }
 
     @Override
-    public void showWelcomeSeconds(int seconds){
-      progressView.setText(seconds+"s");
+    public void showWelcomeSeconds(int seconds) {
+        progressView.setText(seconds + "s");
     }
 
     @Override
@@ -58,9 +59,11 @@ public class WelcomeActivity extends AppCompatActivity implements WelcomeContrac
         Log.d("Welcome", "disWelcomePage: ");
         Intent intent = new Intent();
         PreferenceService sharedPreferences = Treasure.get(this, PreferenceService.class);
-        if (sharedPreferences != null && sharedPreferences.getUsername().equalsIgnoreCase("WatchhWordd")) {
+        if (sharedPreferences != null && sharedPreferences.getUsername()
+                .equalsIgnoreCase("WatchhWordd")) {
             intent.setClass(this, MainActivity.class);
-            intent.putExtra("userInfo", (Serializable) ACache.get(this).getAsObject("userInfo"));
+            intent.putExtra("userInfo", (Serializable) ACache.get(
+                    this.getApplicationContext()).getAsObject(ConfigUtil.S_USER_INFO));
         } else {
             intent.setClass(this, LoginActivity.class);
         }

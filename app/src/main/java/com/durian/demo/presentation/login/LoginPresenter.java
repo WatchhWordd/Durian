@@ -39,7 +39,7 @@ public class LoginPresenter implements LoginContract.Presenter {
         this.context = context;
         this.getUserInfo = getUserInfo;
         this.preferenceService = Treasure.get(this.context, PreferenceService.class);
-        this.aCache = ACache.get(this.context);
+        this.aCache = ACache.get(this.context.getApplicationContext());
         this.loginView.setPresenter(this);
         compositeDisposable = new CompositeDisposable();
     }
@@ -106,6 +106,6 @@ public class LoginPresenter implements LoginContract.Presenter {
 
     @Override
     public void saveData(UserInfo data) {
-      aCache.put(ConfigUtil.S_USER_INFO,data);
+      aCache.put(ConfigUtil.S_USER_INFO,data,ConfigUtil.USER_SAVE_DATE);
     }
 }
