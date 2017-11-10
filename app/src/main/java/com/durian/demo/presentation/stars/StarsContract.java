@@ -1,4 +1,4 @@
-package com.durian.demo.presentation.repositories;
+package com.durian.demo.presentation.stars;
 
 import com.durian.demo.BasePresent;
 import com.durian.demo.BaseView;
@@ -6,12 +6,12 @@ import com.durian.demo.BaseView;
 /**
  * @author zhangyb
  * @description
- * @date 2017/11/9
+ * @date 2017/11/10
  */
 
-public class RepositoriesContract {
-
+public class StarsContract {
     interface View extends BaseView<Presenter> {
+
     }
 
     interface Presenter extends BasePresent {

@@ -17,9 +17,12 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.durian.demo.R;
 import com.durian.demo.data.net.bean.UserInfo;
+import com.durian.demo.presentation.followers.FollowersFragment;
+import com.durian.demo.presentation.following.FollowingFragment;
 import com.durian.demo.presentation.main.widget.MainDrawerListener;
 import com.durian.demo.presentation.overview.OverViewFragment;
 import com.durian.demo.presentation.repositories.RepositoriesFragment;
+import com.durian.demo.presentation.stars.StarsFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +38,12 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     private ImageView overView;
     private View repositoriesLayout;
     private ImageView repositoriesView;
+    private View starsLayout;
+    private ImageView starsView;
+    private View followersLayout;
+    private ImageView followersView;
+    private View followingLayout;
+    private ImageView followingView;
 
     UserInfo userInfo;
 
@@ -88,15 +97,15 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         transaction.add(R.id.id_main_fragment_container,
                 RepositoriesFragment.newInstance(userInfo.getLogin(), "subject"), RepositoriesFragment.class
                         .getSimpleName());
-//        transaction.add(R.id.id_main_fragment_container,
-//                StarsFragment.newInstance(mUserInfo.login, "subject"), StarsFragment.class
-//                        .getSimpleName());
-//        transaction.add(R.id.fragment_container,
-//                FollowersFragment.newInstance(mUserInfo.login, "subject"), FollowersFragment.class
-//                        .getSimpleName());
-//        transaction.add(R.id.fragment_container,
-//                FollowingFragment.newInstance(mUserInfo.login, "subject"), FollowingFragment.class
-//                        .getSimpleName());
+        transaction.add(R.id.id_main_fragment_container,
+                StarsFragment.newInstance(userInfo.getLogin(), "subject"), StarsFragment.class
+                        .getSimpleName());
+        transaction.add(R.id.id_main_fragment_container,
+                FollowersFragment.newInstance(userInfo.getLogin(), "subject"), FollowersFragment.class
+                        .getSimpleName());
+        transaction.add(R.id.id_main_fragment_container,
+                FollowingFragment.newInstance(userInfo.getLogin(), "subject"), FollowingFragment.class
+                        .getSimpleName());
         transaction.commit();
     }
 
@@ -145,19 +154,25 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         repositoriesLayout = findViewById(R.id.id_main_drawer_item_menu_repositories);
         repositoriesView = (ImageView) findViewById(R.id.id_main_drawer_status_item_menu_repositories);
 
-        View starsLayout = findViewById(R.id.id_main_drawer_item_menu_stars);
-        ImageView starsView = (ImageView) findViewById(R.id.id_main_drawer_status_item_menu_stars);
+        starsLayout = findViewById(R.id.id_main_drawer_item_menu_stars);
+        starsView = (ImageView) findViewById(R.id.id_main_drawer_status_item_menu_stars);
 
-        View followersLayout = findViewById(R.id.id_main_drawer_item_menu_followers);
-        ImageView followersView = (ImageView) findViewById(R.id.id_main_drawer_status_item_menu_followers);
+        followersLayout = findViewById(R.id.id_main_drawer_item_menu_followers);
+        followersView = (ImageView) findViewById(R.id.id_main_drawer_status_item_menu_followers);
 
-        View followingLayout = findViewById(R.id.id_main_drawer_item_menu_following);
-        ImageView followingView = (ImageView) findViewById(R.id.id_main_drawer_status_item_menu_following);
+        followingLayout = findViewById(R.id.id_main_drawer_item_menu_following);
+        followingView = (ImageView) findViewById(R.id.id_main_drawer_status_item_menu_following);
 
         overViewLayout.setOnClickListener(view ->
                 navigateItemSelected(R.id.id_main_drawer_item_menu_overview));
         repositoriesLayout.setOnClickListener(view ->
                 navigateItemSelected(R.id.id_main_drawer_item_menu_repositories));
+        starsLayout.setOnClickListener(view ->
+                navigateItemSelected(R.id.id_main_drawer_item_menu_stars));
+        followersLayout.setOnClickListener(view ->
+                navigateItemSelected(R.id.id_main_drawer_item_menu_followers));
+        followingLayout.setOnClickListener(view ->
+                navigateItemSelected(R.id.id_main_drawer_item_menu_following));
     }
 
     private void navigateItemSelected(int i) {
@@ -165,6 +180,12 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         overViewLayout.setSelected(false);
         repositoriesView.setVisibility(View.INVISIBLE);
         repositoriesLayout.setSelected(false);
+        starsView.setVisibility(View.INVISIBLE);
+        starsLayout.setSelected(false);
+        followersView.setVisibility(View.INVISIBLE);
+        followersLayout.setSelected(false);
+        followingView.setVisibility(View.INVISIBLE);
+        followingLayout.setSelected(false);
         if (i == R.id.id_main_drawer_item_menu_overview) {
             overView.setVisibility(View.VISIBLE);
             overViewLayout.setSelected(true);
@@ -175,9 +196,25 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
             repositoriesLayout.setSelected(true);
             navigateToFragment(RepositoriesFragment.class.getSimpleName());
             setTitle(R.string.main_nav_repositories);
+        } else if (i == R.id.id_main_drawer_item_menu_stars) {
+            starsView.setVisibility(View.VISIBLE);
+            starsLayout.setSelected(true);
+            navigateToFragment(StarsFragment.class.getSimpleName());
+            setTitle(R.string.main_nav_stars);
+        } else if (i == R.id.id_main_drawer_item_menu_followers) {
+            followersView.setVisibility(View.VISIBLE);
+            followersLayout.setSelected(true);
+            navigateToFragment(FollowersFragment.class.getSimpleName());
+            setTitle(R.string.main_nav_followers);
+        } else if (i == R.id.id_main_drawer_item_menu_following) {
+            followingView.setVisibility(View.VISIBLE);
+            followingLayout.setSelected(true);
+            navigateToFragment(FollowingFragment.class.getSimpleName());
+            setTitle(R.string.main_nav_following);
         }
     }
 
+    @SuppressLint("RestrictedApi")
     private void navigateToFragment(String tag) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         Fragment toShow = getSupportFragmentManager().findFragmentByTag(tag);

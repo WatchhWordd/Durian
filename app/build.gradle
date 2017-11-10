@@ -49,6 +49,7 @@ dependencies {
     apt dep.treasureAnnotation
 
     compile dep.glide
+    compile dep.jodaTime
     compile project(':clientcloud')
     compile project(':durianlogger')
 }

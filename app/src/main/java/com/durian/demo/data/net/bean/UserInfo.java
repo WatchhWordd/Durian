@@ -2,7 +2,12 @@ package com.durian.demo.data.net.bean;
 
 import com.google.gson.annotations.SerializedName;
 
+import org.joda.time.LocalDate;
+import org.joda.time.format.DateTimeFormatter;
+import org.joda.time.format.ISODateTimeFormat;
+
 import java.io.Serializable;
+import java.util.Locale;
 
 /**
  * @author zhangyb
@@ -332,7 +337,13 @@ public class UserInfo implements Serializable {
     }
 
     public String getCreatedAt() {
-        return createdAt;
+        DateTimeFormatter formatter = ISODateTimeFormat.dateTimeParser().withLocale(Locale.CHINA);
+        LocalDate date = formatter.parseLocalDate(createdAt);
+        int  year =date.getYear();
+        int month =date.getMonthOfYear();
+        int day = date.getDayOfMonth();
+        String dataStr = year+"-"+month+"-"+day;
+        return dataStr;
     }
 
     public void setCreatedAt(String createdAt) {

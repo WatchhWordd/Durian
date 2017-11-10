@@ -42,7 +42,7 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_main);
         initViews();
-        new LoginPresenter(this,this, GitDataInjection.provideGgetUserInfo());
+        new LoginPresenter(this,this, GitDataInjection.provideGetUserInfo());
         this.presenter.start();
     }
 

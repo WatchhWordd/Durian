@@ -9,7 +9,7 @@ import io.reactivex.Observable;
 
 /**
  * @author zhangyb
- * @description
+ * @description useCase
  * @date 2017/11/2
  */
 
