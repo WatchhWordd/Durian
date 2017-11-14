@@ -2,12 +2,19 @@ package com.durian.demo.presentation.following;
 
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.durian.demo.BaseFragment;
 import com.durian.demo.GitDataInjection;
 import com.durian.demo.R;
+import com.durian.demo.base.widget.MarginDecoration;
+import com.durian.demo.base.widget.RippleItemAnimator;
+import com.durian.demo.data.net.bean.UserInfo;
+import com.durian.demo.presentation.following.adapter.FollowingAdapter;
+
+import java.util.ArrayList;
 
 /**
  * @author zhangyb
@@ -24,6 +31,8 @@ public class FollowingFragment extends BaseFragment implements FollowingContract
 
     private String userName;
     private FollowingContract.Presenter presenter;
+    private FollowingAdapter followingAdapter;
+    private ArrayList<UserInfo> userInfos;
 
 
     public static FollowingFragment newInstance(String login, String subject) {
@@ -42,16 +51,32 @@ public class FollowingFragment extends BaseFragment implements FollowingContract
 
     @Override
     public void initView(View view) {
+        userInfos = new ArrayList<>();
+        userInfos.clear();
         initSwipeLayout(view);
         initRecycleLayout(view);
     }
 
     private void initSwipeLayout(View view) {
         swipeRefreshLayout = view.findViewById(R.id.id_following_swipe_container);
+        swipeRefreshLayout.setOnRefreshListener(()->{
+            swipeRefreshLayout.setRefreshing(true);
+            loadRepo();
+        });
+    }
+
+    private void loadRepo() {
+       presenter.loadData(userName);
     }
 
     private void initRecycleLayout(View view) {
         recyclerView = view.findViewById(R.id.id_following_recycler_view);
+        recyclerView.addItemDecoration(new MarginDecoration(context));
+        recyclerView.setItemAnimator(new RippleItemAnimator());
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new GridLayoutManager(context,1));
+        followingAdapter = new FollowingAdapter(context,userInfos);
+        recyclerView.setAdapter(followingAdapter);
     }
 
     @Override
@@ -67,5 +92,18 @@ public class FollowingFragment extends BaseFragment implements FollowingContract
     @Override
     public void setPresenter(FollowingContract.Presenter presenter) {
         this.presenter = presenter;
+    }
+
+    @Override
+    public void showDataListView(ArrayList<UserInfo> userInfos) {
+        swipeRefreshLayout.setRefreshing(false);
+        this.userInfos.addAll(userInfos);
+        followingAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void showloadFail(String fail) {
+        swipeRefreshLayout.setRefreshing(false);
+
     }
 }

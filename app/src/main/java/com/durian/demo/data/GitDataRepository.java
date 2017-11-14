@@ -35,7 +35,8 @@ public class GitDataRepository implements GitDataSource {
 
     @Override
     public Observable<GetRepositoryList.Response> getRepositoryList(GetRepositoryList.Request requestValue) {
-        return gitDataNetApi.getRepositoryList(requestValue.getUserName(), requestValue.getParams())
+        return gitDataNetApi.getRepositoryList(requestValue.getUserName(),requestValue.getType(),
+                requestValue.getSort(),requestValue.getDirection())
                 .map(response -> new GetRepositoryList.Response(response));
     }
 

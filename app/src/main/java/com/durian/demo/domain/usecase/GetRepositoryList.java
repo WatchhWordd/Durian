@@ -5,7 +5,6 @@ import com.durian.demo.data.net.bean.ReposInfo;
 import com.durian.demo.domain.GitDataSource;
 
 import java.util.ArrayList;
-import java.util.Map;
 
 import io.reactivex.Observable;
 
@@ -31,11 +30,15 @@ public class GetRepositoryList extends RxUseCase<GetRepositoryList.Request,GetRe
 
     public static class  Request implements RxUseCase.RequestValues{
         String userName;
-        Map<String, Object> params;
+        String type;
+        String sort;
+        String direction;
 
-        public Request(String userName, Map<String, Object> params) {
+        public Request(String userName, String type, String sort, String direction) {
             this.userName = userName;
-            this.params = params;
+            this.type = type;
+            this.sort = sort;
+            this.direction = direction;
         }
 
         public String getUserName() {
@@ -46,12 +49,28 @@ public class GetRepositoryList extends RxUseCase<GetRepositoryList.Request,GetRe
             this.userName = userName;
         }
 
-        public Map<String, Object> getParams() {
-            return params;
+        public String getType() {
+            return type;
         }
 
-        public void setParams(Map<String, Object> params) {
-            this.params = params;
+        public void setType(String type) {
+            this.type = type;
+        }
+
+        public String getSort() {
+            return sort;
+        }
+
+        public void setSort(String sort) {
+            this.sort = sort;
+        }
+
+        public String getDirection() {
+            return direction;
+        }
+
+        public void setDirection(String direction) {
+            this.direction = direction;
         }
     }
     public static class  Response implements RxUseCase.ResponseValue {
@@ -59,6 +78,14 @@ public class GetRepositoryList extends RxUseCase<GetRepositoryList.Request,GetRe
         ArrayList<ReposInfo> reposInfos;
 
         public Response(ArrayList<ReposInfo> reposInfos) {
+            this.reposInfos = reposInfos;
+        }
+
+        public ArrayList<ReposInfo> getReposInfos() {
+            return reposInfos;
+        }
+
+        public void setReposInfos(ArrayList<ReposInfo> reposInfos) {
             this.reposInfos = reposInfos;
         }
     }

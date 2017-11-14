@@ -5,18 +5,16 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.baoyz.treasure.Treasure;
-import com.durian.demo.base.utils.ConfigUtil;
-import com.durian.demo.presentation.main.MainActivity;
 import com.durian.demo.R;
 import com.durian.demo.base.utils.ACache;
+import com.durian.demo.base.utils.ConfigUtil;
 import com.durian.demo.base.utils.PreferenceService;
+import com.durian.demo.data.net.bean.UserInfo;
 import com.durian.demo.presentation.login.LoginActivity;
-
-import java.io.Serializable;
+import com.durian.demo.presentation.main.MainActivity;
 
 /**
  * @author zhangyb
@@ -27,7 +25,6 @@ import java.io.Serializable;
 public class WelcomeActivity extends AppCompatActivity implements WelcomeContract.View {
 
     private WelcomeContract.Presenter presenter;
-    private ImageView loadImage;
     private TextView progressView;
 
     @Override
@@ -40,7 +37,6 @@ public class WelcomeActivity extends AppCompatActivity implements WelcomeContrac
     }
 
     private void initView() {
-        loadImage = (ImageView) findViewById(R.id.id_welcome_page);
         progressView = (TextView) findViewById(R.id.id_welcome_seconds);
     }
 
@@ -59,11 +55,12 @@ public class WelcomeActivity extends AppCompatActivity implements WelcomeContrac
         Log.d("Welcome", "disWelcomePage: ");
         Intent intent = new Intent();
         PreferenceService sharedPreferences = Treasure.get(this, PreferenceService.class);
+        UserInfo userInfo = (UserInfo) ACache.get(this.getApplicationContext())
+                .getAsObject(ConfigUtil.S_USER_INFO);
         if (sharedPreferences != null && sharedPreferences.getUsername()
-                .equalsIgnoreCase("WatchhWordd")) {
+                .equalsIgnoreCase("WatchhWordd") && userInfo != null) {
             intent.setClass(this, MainActivity.class);
-            intent.putExtra("userInfo", (Serializable) ACache.get(
-                    this.getApplicationContext()).getAsObject(ConfigUtil.S_USER_INFO));
+            intent.putExtra("userInfo", userInfo);
         } else {
             intent.setClass(this, LoginActivity.class);
         }

@@ -10,4 +10,5 @@
     <dimen name="spacing_12dp">12dp</dimen>
     <dimen name="spacing_14dp">14dp</dimen>
     <dimen name="spacing_24dp">24dp</dimen>
+    <dimen name="spacing_60dp">60dp</dimen>
 </resources>

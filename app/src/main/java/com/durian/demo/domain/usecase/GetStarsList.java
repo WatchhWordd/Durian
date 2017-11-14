@@ -49,5 +49,13 @@ public class GetStarsList extends RxUseCase<GetStarsList.Request,GetStarsList.Re
         public Response(ArrayList<ReposInfo> reposInfos) {
             this.reposInfos = reposInfos;
         }
+
+        public ArrayList<ReposInfo> getReposInfos() {
+            return reposInfos;
+        }
+
+        public void setReposInfos(ArrayList<ReposInfo> reposInfos) {
+            this.reposInfos = reposInfos;
+        }
     }
 }

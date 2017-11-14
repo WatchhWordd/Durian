@@ -4,13 +4,12 @@ import com.durian.demo.data.net.bean.ReposInfo;
 import com.durian.demo.data.net.bean.UserInfo;
 
 import java.util.ArrayList;
-import java.util.Map;
 
 import io.reactivex.Observable;
-import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 /**
  * @author zhangyb
@@ -29,7 +28,9 @@ public interface GitDataNetApi {
     //获取Repository列表
     @GET("/users/{username}/repos")
     Observable<ArrayList<ReposInfo>> getRepositoryList(@Path("username") String userName,
-                                                       @Body Map<String, Object> params);
+                                                       @Query("type") String type,
+                                                       @Query("sort") String sort,
+                                                       @Query("direction") String direction);
 
     //获取 following 列表
     @GET("/users/{username}/following")
