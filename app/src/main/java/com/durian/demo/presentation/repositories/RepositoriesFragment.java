@@ -10,9 +10,11 @@ import android.widget.Toast;
 import com.durian.demo.BaseFragment;
 import com.durian.demo.GitDataInjection;
 import com.durian.demo.R;
+import com.durian.demo.base.utils.RxBus;
 import com.durian.demo.base.widget.MarginDecoration;
 import com.durian.demo.base.widget.RippleItemAnimator;
 import com.durian.demo.data.net.bean.ReposInfo;
+import com.durian.demo.data.net.bean.SortDataParam;
 import com.durian.demo.presentation.repositories.adpter.RepositoriesAdapter;
 import com.durian.gitlogger.Log;
 
@@ -57,6 +59,12 @@ public class RepositoriesFragment extends BaseFragment implements RepositoriesCo
         reposInfos.clear();
         initSwipeLayout(view);
         initRecycleLayout(view);
+        initRegisterPost();
+    }
+
+    private void initRegisterPost() {
+        RxBus.getDefault().toFlowable(SortDataParam.class)
+                .subscribe(result -> loadRepo());
     }
 
     @Override
@@ -68,7 +76,7 @@ public class RepositoriesFragment extends BaseFragment implements RepositoriesCo
     private void initSwipeLayout(View view) {
         swipeRefreshLayout = view.findViewById(R.id.id_repo_swipe_container);
         swipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
-        swipeRefreshLayout.setOnRefreshListener(()->{
+        swipeRefreshLayout.setOnRefreshListener(() -> {
             swipeRefreshLayout.setRefreshing(true);
             loadRepo();
         });
@@ -84,8 +92,8 @@ public class RepositoriesFragment extends BaseFragment implements RepositoriesCo
         recyclerView.addItemDecoration(new MarginDecoration(context));
         recyclerView.setItemAnimator(new RippleItemAnimator());
         recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new GridLayoutManager(context,1));
-        repositoriesAdapter = new RepositoriesAdapter(context,reposInfos);
+        recyclerView.setLayoutManager(new GridLayoutManager(context, 1));
+        repositoriesAdapter = new RepositoriesAdapter(context, reposInfos);
         recyclerView.setAdapter(repositoriesAdapter);
     }
 
@@ -94,7 +102,7 @@ public class RepositoriesFragment extends BaseFragment implements RepositoriesCo
         if (getArguments() != null) {
             userName = getArguments().getString(ARG_PARAM_USERNAME);
         }
-        new RepositoriesPresenter(context,userName, this, GitDataInjection.provideGetReositoryList());
+        new RepositoriesPresenter(context, userName, this, GitDataInjection.provideGetReositoryList());
         presenter.start();
     }
 
@@ -114,6 +122,6 @@ public class RepositoriesFragment extends BaseFragment implements RepositoriesCo
     @Override
     public void showRepoDataFail(Throwable throwable) {
         swipeRefreshLayout.setRefreshing(false);
-      Toast.makeText(context,"load fail",Toast.LENGTH_LONG).show();
+        Toast.makeText(context, "load fail", Toast.LENGTH_LONG).show();
     }
 }

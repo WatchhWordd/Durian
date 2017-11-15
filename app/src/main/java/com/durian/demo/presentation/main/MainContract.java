@@ -17,6 +17,8 @@ public class MainContract {
         void setupFragments();
 
         void appendFragments();
+
+        void updateOverView(Integer tabIndex);
     }
 
     interface Presenter extends BasePresent {

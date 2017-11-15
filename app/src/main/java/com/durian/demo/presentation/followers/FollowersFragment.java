@@ -59,14 +59,15 @@ public class FollowersFragment extends BaseFragment implements FollowersContract
 
     private void initSwipeLayout(View view) {
         swipeRefreshLayout = view.findViewById(R.id.id_follower_swipe_container);
-        swipeRefreshLayout.setOnRefreshListener(()->{
+        swipeRefreshLayout.setOnRefreshListener(() -> {
             swipeRefreshLayout.setRefreshing(true);
             loadRepo();
         });
     }
 
     private void loadRepo() {
-       presenter.loadData(userName);
+        userInfos.clear();
+        presenter.loadData(userName);
     }
 
     private void initRecycleLayout(View view) {
@@ -74,18 +75,18 @@ public class FollowersFragment extends BaseFragment implements FollowersContract
         recyclerView.addItemDecoration(new MarginDecoration(context));
         recyclerView.setItemAnimator(new RippleItemAnimator());
         recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new GridLayoutManager(context,1));
-        followersAdapter = new FollowersAdapter(context,userInfos);
+        recyclerView.setLayoutManager(new GridLayoutManager(context, 1));
+        followersAdapter = new FollowersAdapter(context, userInfos);
         recyclerView.setAdapter(followersAdapter);
     }
 
     @Override
     public void initData() {
-       if (getArguments() != null){
-           userName = getArguments().getString(USERNAME);
-       }
-       new FollowersPresenter(context,this, GitDataInjection.provideGetUserFollowers());
-       presenter.start();
+        if (getArguments() != null) {
+            userName = getArguments().getString(USERNAME);
+        }
+        new FollowersPresenter(context, userName, this, GitDataInjection.provideGetUserFollowers());
+        presenter.start();
     }
 
 

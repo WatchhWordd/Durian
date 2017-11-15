@@ -67,6 +67,7 @@ public class StarsFragment extends BaseFragment implements StarsContract.View {
     }
 
     private void loadRepo() {
+        reposInfos.clear();
         presenter.loadData(userName);
     }
 
@@ -85,7 +86,7 @@ public class StarsFragment extends BaseFragment implements StarsContract.View {
         if (getArguments() != null) {
             userName = getArguments().getString(USERNAME);
         }
-        new StarsPresenter(context, this, GitDataInjection.provideGetStarsList());
+        new StarsPresenter(context, userName,this, GitDataInjection.provideGetStarsList());
         presenter.start();
     }
 

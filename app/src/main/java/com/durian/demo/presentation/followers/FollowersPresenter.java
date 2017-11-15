@@ -2,6 +2,8 @@ package com.durian.demo.presentation.followers;
 
 import android.content.Context;
 
+import com.durian.demo.base.utils.ACache;
+import com.durian.demo.base.utils.ConfigUtil;
 import com.durian.demo.domain.usecase.GetUserFollowers;
 
 import io.reactivex.Observer;
@@ -20,9 +22,12 @@ public class FollowersPresenter implements FollowersContract.Presenter {
     private FollowersContract.View followerView;
 
     private GetUserFollowers loadUserFollowers;
+    private String userName;
 
-    public FollowersPresenter(Context context, FollowersContract.View view, GetUserFollowers getUserFollowers) {
-        this.context =context;
+    public FollowersPresenter(Context context, String userName,
+                              FollowersContract.View view, GetUserFollowers getUserFollowers) {
+        this.context = context;
+        this.userName = userName;
         this.followerView = view;
         this.loadUserFollowers = getUserFollowers;
         followerView.setPresenter(this);
@@ -30,7 +35,7 @@ public class FollowersPresenter implements FollowersContract.Presenter {
 
     @Override
     public void start() {
-
+        loadData(userName);
     }
 
     @Override
@@ -47,9 +52,10 @@ public class FollowersPresenter implements FollowersContract.Presenter {
 
                     @Override
                     public void onNext(GetUserFollowers.Response response) {
-                       if (followerView!=null){
-                           followerView.showDataListView(response.getUserInfos());
-                       }
+                        if (followerView != null) {
+                            followerView.showDataListView(response.getUserInfos());
+                        }
+                        ACache.get(context).put(ConfigUtil.S_FOLLOWERS,response.getUserInfos());
                     }
 
                     @Override

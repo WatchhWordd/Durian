@@ -2,6 +2,10 @@ package com.durian.demo.presentation.repositories;
 
 import android.content.Context;
 
+import com.durian.demo.base.utils.ACache;
+import com.durian.demo.base.utils.ConfigUtil;
+import com.durian.demo.base.utils.RxBus;
+import com.durian.demo.data.net.bean.SortDataParam;
 import com.durian.demo.domain.usecase.GetRepositoryList;
 
 import io.reactivex.Observer;
@@ -24,7 +28,7 @@ public class RepositoriesPresenter implements RepositoriesContract.Presenter {
     private CompositeDisposable compositeDisposable;
     private String userName;
 
-    public RepositoriesPresenter(Context context,String userName,
+    public RepositoriesPresenter(Context context, String userName,
                                  RepositoriesContract.View view, GetRepositoryList getRepositoryList) {
         this.context = context;
         this.userName = userName;
@@ -41,7 +45,7 @@ public class RepositoriesPresenter implements RepositoriesContract.Presenter {
 
     @Override
     public void loadRepoData(String userName) {
-        GetRepositoryList.Request request = new GetRepositoryList.Request(userName,"all","full_name","asc");
+        GetRepositoryList.Request request = new GetRepositoryList.Request(userName, "all", "full_name", "asc");
         loadRepositoryList.executeUseCase(request)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -56,7 +60,12 @@ public class RepositoriesPresenter implements RepositoriesContract.Presenter {
                         if (repoView != null) {
                             repoView.showRepoDataList(response.getReposInfos());
                         }
-
+                        ACache.get(context).put(ConfigUtil.S_REPOES, response.getReposInfos());
+                        SortDataParam sortDataParam = new SortDataParam();
+                        sortDataParam.setSortType(0);
+                        sortDataParam.setType(0);
+                        sortDataParam.setReposInfos(response.getReposInfos());
+                        RxBus.getDefault().post(sortDataParam);
                     }
 
                     @Override

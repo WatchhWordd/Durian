@@ -2,6 +2,10 @@ package com.durian.demo.presentation.overview;
 
 import com.durian.demo.BasePresent;
 import com.durian.demo.BaseView;
+import com.durian.demo.data.net.bean.ReposInfo;
+import com.durian.demo.data.net.bean.UserInfo;
+
+import java.util.ArrayList;
 
 /**
  * @author zhangyb
@@ -11,11 +15,30 @@ import com.durian.demo.BaseView;
 
 public class OverViewContract {
 
-    interface View extends BaseView<Presenter>{
+    public interface View extends BaseView<Presenter> {
+
+        void showRepoesView(ArrayList<ReposInfo> reposInfos);
+
+        void showFollowerView(ArrayList<UserInfo> userInfos);
+
+        void showFollowingView(ArrayList<UserInfo> userInfos);
+
+        void showStarsView(ArrayList<ReposInfo> reposInfos);
 
     }
 
-    interface Presenter extends BasePresent{
+    public interface Presenter extends BasePresent {
 
+        void refreshEvents();
+
+        void refreshOverRepoes();
+
+        ArrayList<UserInfo> loadFollowersList();
+
+        ArrayList<UserInfo> loadFollowingList();
+
+        ArrayList<ReposInfo> loadReposList();
+
+        ArrayList<ReposInfo> loadStars();
     }
 }

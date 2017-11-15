@@ -2,6 +2,8 @@ package com.durian.demo.presentation.stars;
 
 import android.content.Context;
 
+import com.durian.demo.base.utils.ACache;
+import com.durian.demo.base.utils.ConfigUtil;
 import com.durian.demo.domain.usecase.GetStarsList;
 
 import io.reactivex.Observer;
@@ -20,9 +22,11 @@ public class StarsPresenter implements StarsContract.Presenter {
     private Context context;
     private StarsContract.View starsView;
     private GetStarsList loadStarsList;
+    private String userName;
 
-    public StarsPresenter(Context context, StarsContract.View view, GetStarsList getStarsList) {
+    public StarsPresenter(Context context, String userName, StarsContract.View view, GetStarsList getStarsList) {
         this.context = context;
+        this.userName = userName;
         this.starsView = view;
         this.loadStarsList = getStarsList;
         starsView.setPresenter(this);
@@ -30,7 +34,7 @@ public class StarsPresenter implements StarsContract.Presenter {
 
     @Override
     public void start() {
-
+        loadData(userName);
     }
 
     @Override
@@ -47,15 +51,17 @@ public class StarsPresenter implements StarsContract.Presenter {
 
                     @Override
                     public void onNext(GetStarsList.Response response) {
-
-                        if (starsView!=null){
+                        if (starsView != null) {
                             starsView.showDataListView(response.getReposInfos());
                         }
+                        ACache.get(context).put(ConfigUtil.S_STARRED,response.getReposInfos());
                     }
 
                     @Override
                     public void onError(Throwable e) {
-
+                        if (starsView != null) {
+                             starsView.showDataFail(e.getMessage());
+                        }
                     }
 
                     @Override

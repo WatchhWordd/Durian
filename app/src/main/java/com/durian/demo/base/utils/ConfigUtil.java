@@ -17,6 +17,12 @@ public class ConfigUtil {
     public static final String S_USER_INFO = "user_info_obj";
     public static final int USER_SAVE_DATE = 30 * 24 * 3600; //缓存一个月
 
+    //acache
+    public static final String S_FOLLOWERS = "followers_list";
+    public static final String S_FOLLOWINGS = "following_list";
+    public static final String S_STARRED = "starred_list";
+    public static final String S_REPOES = "repo_list";
+
     public static AlertDialog getAndShowLoadingDialog(Context context, String content) {
         AlertDialog loadingDialog = new AlertDialog.Builder(context).create();
         loadingDialog.show();

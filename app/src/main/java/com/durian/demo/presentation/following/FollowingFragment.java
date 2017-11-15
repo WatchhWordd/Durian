@@ -59,14 +59,15 @@ public class FollowingFragment extends BaseFragment implements FollowingContract
 
     private void initSwipeLayout(View view) {
         swipeRefreshLayout = view.findViewById(R.id.id_following_swipe_container);
-        swipeRefreshLayout.setOnRefreshListener(()->{
+        swipeRefreshLayout.setOnRefreshListener(() -> {
             swipeRefreshLayout.setRefreshing(true);
             loadRepo();
         });
     }
 
     private void loadRepo() {
-       presenter.loadData(userName);
+        userInfos.clear();
+        presenter.loadData(userName);
     }
 
     private void initRecycleLayout(View view) {
@@ -74,8 +75,8 @@ public class FollowingFragment extends BaseFragment implements FollowingContract
         recyclerView.addItemDecoration(new MarginDecoration(context));
         recyclerView.setItemAnimator(new RippleItemAnimator());
         recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new GridLayoutManager(context,1));
-        followingAdapter = new FollowingAdapter(context,userInfos);
+        recyclerView.setLayoutManager(new GridLayoutManager(context, 1));
+        followingAdapter = new FollowingAdapter(context, userInfos);
         recyclerView.setAdapter(followingAdapter);
     }
 
@@ -84,7 +85,7 @@ public class FollowingFragment extends BaseFragment implements FollowingContract
         if (getArguments() != null) {
             userName = getArguments().getString(USERNAME);
         }
-        new FollowingPresenter(context, this, GitDataInjection.provideGetUserFollowing());
+        new FollowingPresenter(context, userName, this, GitDataInjection.provideGetUserFollowing());
         presenter.start();
     }
 

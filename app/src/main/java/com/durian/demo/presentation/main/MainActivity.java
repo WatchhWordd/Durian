@@ -20,6 +20,7 @@ import com.durian.demo.data.net.bean.UserInfo;
 import com.durian.demo.presentation.followers.FollowersFragment;
 import com.durian.demo.presentation.following.FollowingFragment;
 import com.durian.demo.presentation.main.widget.MainDrawerListener;
+import com.durian.demo.presentation.overview.OverViewContract;
 import com.durian.demo.presentation.overview.OverViewFragment;
 import com.durian.demo.presentation.repositories.RepositoriesFragment;
 import com.durian.demo.presentation.stars.StarsFragment;
@@ -27,7 +28,8 @@ import com.durian.demo.presentation.stars.StarsFragment;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements MainContract.View, DrawerLayout.DrawerListener {
+public class MainActivity extends AppCompatActivity implements MainContract.View,
+        DrawerLayout.DrawerListener {
 
     private MainContract.Presenter presenter;
 
@@ -108,6 +110,16 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
                         .getSimpleName());
         transaction.commit();
     }
+
+    @Override
+    public void updateOverView(Integer tabIndex) {
+
+        OverViewFragment overViewFragment = (OverViewFragment) getSupportFragmentManager()
+                .findFragmentByTag(OverViewFragment.class.getSimpleName());
+        OverViewContract.View view = overViewFragment;
+        OverViewContract.Presenter presenter = (OverViewContract.Presenter) overViewFragment;
+    }
+
 
     private void initTabLayout() {
         toolbar = (Toolbar) findViewById(R.id.id_main_tab);

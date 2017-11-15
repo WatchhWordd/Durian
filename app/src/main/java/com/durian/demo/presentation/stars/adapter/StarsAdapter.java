@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.durian.demo.R;
@@ -34,14 +35,13 @@ public class StarsAdapter extends RecyclerView.Adapter<StarsAdapter.StarsViewHol
         if (view == null) {
             view = LayoutInflater.from(context).inflate(R.layout.item_starred_repo, parent, false);
         }
-
         return new StarsViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(StarsViewHolder holder, int position) {
 
-        if (holder!=null){
+        if (holder != null) {
             holder.titleView.setText(reposInfos.get(position).getName());
             holder.contentView.setText(reposInfos.get(position).getDescription());
         }
@@ -56,11 +56,15 @@ public class StarsAdapter extends RecyclerView.Adapter<StarsAdapter.StarsViewHol
 
         private TextView titleView;
         private TextView contentView;
+        private ImageView iconStars;
+        private ImageView iconRadio;
 
         public StarsViewHolder(View itemView) {
             super(itemView);
             titleView = itemView.findViewById(R.id.id_stars_repo_title);
             contentView = itemView.findViewById(R.id.id_stars_repo_desc);
+            iconStars = itemView.findViewById(R.id.id_icon_star);
+            iconRadio = itemView.findViewById(R.id.id_icon_radio);
         }
     }
 }
