@@ -25,7 +25,7 @@ public class RepositoriesAdapter extends RecyclerView.Adapter<RepositoriesAdapte
     private Context context;
     private ArrayList<ReposInfo> reposInfoArrayList;
 
-    public RepositoriesAdapter(Context context,ArrayList<ReposInfo> reposInfoArrayList) {
+    public RepositoriesAdapter(Context context, ArrayList<ReposInfo> reposInfoArrayList) {
         this.context = context;
         this.reposInfoArrayList = reposInfoArrayList;
     }
@@ -35,14 +35,14 @@ public class RepositoriesAdapter extends RecyclerView.Adapter<RepositoriesAdapte
         View view = null;
         if (viewType == ITEM_VIEW_TYPE_NORMAL) {
             view = LayoutInflater.from(context)
-                    .inflate(R.layout.item_repo,parent,false);
+                    .inflate(R.layout.item_repo, parent, false);
         }
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        if (holder!=null){
+        if (holder != null) {
             holder.repoTitle.setText(reposInfoArrayList.get(position).getName());
             holder.repoDesc.setText(reposInfoArrayList.get(position).getDescription());
         }

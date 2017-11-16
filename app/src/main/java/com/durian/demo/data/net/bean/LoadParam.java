@@ -9,24 +9,15 @@ import java.util.ArrayList;
  * @date 2017/11/15
  */
 
-public class SortDataParam implements Serializable{
+public class LoadParam implements Serializable{
 
-    private int sortType=0;//0:刷新数据, 1:加载数据
     private int type =0 ;//0:reposList
 
     private ArrayList<UserInfo> userInfos;
 
     private ArrayList<ReposInfo> reposInfos;
 
-    public SortDataParam() {
-    }
-
-    public int getSortType() {
-        return sortType;
-    }
-
-    public void setSortType(int sortType) {
-        this.sortType = sortType;
+    public LoadParam() {
     }
 
     public int getType() {

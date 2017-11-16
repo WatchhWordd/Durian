@@ -279,4 +279,10 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     public void onDrawerStateChanged(int newState) {
 
     }
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
 }

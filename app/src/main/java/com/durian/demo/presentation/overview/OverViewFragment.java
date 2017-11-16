@@ -4,6 +4,7 @@ package com.durian.demo.presentation.overview;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
@@ -16,14 +17,18 @@ import com.durian.demo.base.utils.DateUtil;
 import com.durian.demo.base.utils.RxBus;
 import com.durian.demo.base.utils.ScreenUtil;
 import com.durian.demo.base.widget.MarginDecoration;
+import com.durian.demo.data.net.bean.LoadParam;
 import com.durian.demo.data.net.bean.ReposInfo;
-import com.durian.demo.data.net.bean.SortDataParam;
 import com.durian.demo.data.net.bean.UserInfo;
 import com.durian.demo.presentation.overview.adapter.OverEventAdapter;
 import com.durian.demo.presentation.overview.adapter.OverRepoAdapter;
+import com.durian.gitlogger.Log;
 
 import java.util.ArrayList;
 import java.util.Date;
+
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
 
 /**
  * @author zhangyb
@@ -50,6 +55,8 @@ public class OverViewFragment extends BaseFragment implements OverViewContract.V
     private OverEventAdapter overEventAdapter;
     private OverViewContract.Presenter presenter;
 
+    private Disposable disposable;
+
 
     public static OverViewFragment newInstance(String param1, String param2) {
         OverViewFragment fragment = new OverViewFragment();
@@ -71,19 +78,27 @@ public class OverViewFragment extends BaseFragment implements OverViewContract.V
         initEventRecycleView(view);
         initSwipeLayoutView(view);
         initWebViewLayoutView(view);
-        initRegisterPost();
     }
 
     private void initRegisterPost() {
-        RxBus.getDefault().toFlowable(SortDataParam.class)
-                .subscribe(result -> refreshOverRepose(result));
+        disposable = RxBus.getInstance().toFlowable(LoadParam.class)
+                .subscribe(new Consumer<LoadParam>() {
+                    @Override
+                    public void accept(LoadParam result) {
+                        Log.getLogger().info("overView=" + result.getType());
+                        OverViewFragment.this.refreshOverRepose(result);
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) {
+                        Log.getLogger().info("overView_error=" + throwable.getCause());
+                    }
+                });
     }
 
-    private void refreshOverRepose(SortDataParam result) {
-        if (result.getSortType() == 0) {
-            if (result.getType() == 0) {
-                showRepoesView(result.getReposInfos());
-            }
+    private void refreshOverRepose(LoadParam result) {
+        if (result.getType() == 0) {
+            showRepoesView(result.getReposInfos());
         }
     }
 
@@ -93,7 +108,7 @@ public class OverViewFragment extends BaseFragment implements OverViewContract.V
         popularRepoRecyclerView = view.findViewById(R.id.id_over_view_popular_repo_recycler_view);
         popularRepoRecyclerView.addItemDecoration(new MarginDecoration(context));
         popularRepoRecyclerView.setHasFixedSize(true);
-        popularRepoRecyclerView.setLayoutManager(new GridLayoutManager(context, 1));
+        popularRepoRecyclerView.setLayoutManager(new LinearLayoutManager(context));
         overRepoAdapter = new OverRepoAdapter(context, reposInfos);
         popularRepoRecyclerView.setAdapter(overRepoAdapter);
         popularRepoRecyclerView.setNestedScrollingEnabled(false);
@@ -134,7 +149,6 @@ public class OverViewFragment extends BaseFragment implements OverViewContract.V
     }
 
     private void loadCurrentData() {
-        reposInfos.clear();
         presenter.refreshOverRepoes();
         presenter.refreshEvents();
         contributionsWebView.reload();
@@ -143,6 +157,7 @@ public class OverViewFragment extends BaseFragment implements OverViewContract.V
 
     @Override
     public void initData() {
+        initRegisterPost();
         if (getArguments() != null) {
             userName = getArguments().getString(ARG_USERNAME);
             params = getArguments().getString(ARG_PARAM2);
@@ -175,6 +190,8 @@ public class OverViewFragment extends BaseFragment implements OverViewContract.V
 
     @Override
     public void showRepoesView(ArrayList<ReposInfo> reposInfos) {
+        swipeContainer.setRefreshing(false);
+        this.reposInfos.clear();
         this.reposInfos.addAll(reposInfos);
         overRepoAdapter.notifyDataSetChanged();
     }
@@ -192,5 +209,13 @@ public class OverViewFragment extends BaseFragment implements OverViewContract.V
     @Override
     public void showStarsView(ArrayList<ReposInfo> reposInfos) {
 
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (RxBus.getInstance().hasObservers()) {
+            RxBus.getInstance().removeRxBus(disposable);
+        }
     }
 }

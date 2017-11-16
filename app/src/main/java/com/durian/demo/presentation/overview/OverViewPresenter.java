@@ -5,8 +5,8 @@ import android.content.Context;
 import com.durian.demo.base.utils.ACache;
 import com.durian.demo.base.utils.ConfigUtil;
 import com.durian.demo.base.utils.RxBus;
+import com.durian.demo.data.net.bean.RefreshParam;
 import com.durian.demo.data.net.bean.ReposInfo;
-import com.durian.demo.data.net.bean.SortDataParam;
 import com.durian.demo.data.net.bean.UserInfo;
 
 import java.util.ArrayList;
@@ -41,9 +41,8 @@ public class OverViewPresenter implements OverViewContract.Presenter {
 
     @Override
     public void refreshOverRepoes() {
-        SortDataParam sortDataParam = new SortDataParam();
-        sortDataParam.setSortType(1);
-        RxBus.getDefault().post(sortDataParam);
+        RefreshParam refreshParam = new RefreshParam();
+        RxBus.getInstance().post(refreshParam);
     }
 
     @Override

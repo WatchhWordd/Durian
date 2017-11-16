@@ -66,7 +66,6 @@ public class FollowersFragment extends BaseFragment implements FollowersContract
     }
 
     private void loadRepo() {
-        userInfos.clear();
         presenter.loadData(userName);
     }
 
@@ -98,6 +97,7 @@ public class FollowersFragment extends BaseFragment implements FollowersContract
     @Override
     public void showDataListView(ArrayList<UserInfo> userInfos) {
         swipeRefreshLayout.setRefreshing(false);
+        this.userInfos.clear();
         this.userInfos.addAll(userInfos);
         followersAdapter.notifyDataSetChanged();
     }

@@ -13,12 +13,15 @@ import com.durian.demo.R;
 import com.durian.demo.base.utils.RxBus;
 import com.durian.demo.base.widget.MarginDecoration;
 import com.durian.demo.base.widget.RippleItemAnimator;
+import com.durian.demo.data.net.bean.RefreshParam;
 import com.durian.demo.data.net.bean.ReposInfo;
-import com.durian.demo.data.net.bean.SortDataParam;
 import com.durian.demo.presentation.repositories.adpter.RepositoriesAdapter;
 import com.durian.gitlogger.Log;
 
 import java.util.ArrayList;
+
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
 
 /**
  * @author zhangyb
@@ -38,6 +41,8 @@ public class RepositoriesFragment extends BaseFragment implements RepositoriesCo
     private String userName;
     private RepositoriesContract.Presenter presenter;
     private ArrayList<ReposInfo> reposInfos;
+
+    private Disposable disposable;
 
     public static RepositoriesFragment newInstance(String username, String param2) {
         RepositoriesFragment repositoriesFragment = new RepositoriesFragment();
@@ -63,8 +68,13 @@ public class RepositoriesFragment extends BaseFragment implements RepositoriesCo
     }
 
     private void initRegisterPost() {
-        RxBus.getDefault().toFlowable(SortDataParam.class)
-                .subscribe(result -> loadRepo());
+        disposable = RxBus.getInstance().toFlowable(RefreshParam.class)
+                .subscribe(new Consumer<RefreshParam>() {
+                    @Override
+                    public void accept(RefreshParam result) throws Exception {
+                        RepositoriesFragment.this.loadRepo();
+                    }
+                });
     }
 
     @Override
@@ -123,5 +133,13 @@ public class RepositoriesFragment extends BaseFragment implements RepositoriesCo
     public void showRepoDataFail(Throwable throwable) {
         swipeRefreshLayout.setRefreshing(false);
         Toast.makeText(context, "load fail", Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (RxBus.getInstance().hasObservers()){
+            RxBus.getInstance().removeRxBus(disposable);
+        }
     }
 }
