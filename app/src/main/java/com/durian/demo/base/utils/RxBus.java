@@ -44,7 +44,6 @@ public class RxBus {
         return mBus.ofType(aClass);
     }
 
-
     public boolean hasObservers() {
         return mBus.hasObservers();
     }
