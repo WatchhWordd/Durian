@@ -2,10 +2,8 @@ package com.durian.demo.presentation.repositories;
 
 import android.content.Context;
 
-import com.durian.demo.base.utils.ACache;
-import com.durian.demo.base.utils.ConfigUtil;
 import com.durian.demo.base.utils.RxBus;
-import com.durian.demo.data.net.bean.SortDataParam;
+import com.durian.demo.data.net.bean.LoadParam;
 import com.durian.demo.domain.usecase.GetRepositoryList;
 
 import io.reactivex.Observer;
@@ -60,12 +58,13 @@ public class RepositoriesPresenter implements RepositoriesContract.Presenter {
                         if (repoView != null) {
                             repoView.showRepoDataList(response.getReposInfos());
                         }
-                        ACache.get(context).put(ConfigUtil.S_REPOES, response.getReposInfos());
-                        SortDataParam sortDataParam = new SortDataParam();
-                        sortDataParam.setSortType(0);
+                        //ACache.get(context).put(ConfigUtil.S_REPOES, response.getReposInfos());
+                        LoadParam sortDataParam = new LoadParam();
                         sortDataParam.setType(0);
                         sortDataParam.setReposInfos(response.getReposInfos());
-                        RxBus.getDefault().post(sortDataParam);
+                        if (RxBus.getInstance().hasObservers()){
+                            RxBus.getInstance().post(sortDataParam);
+                        }
                     }
 
                     @Override

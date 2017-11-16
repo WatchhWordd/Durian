@@ -3,11 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/id_over_swipe_container"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    tools:context="com.durian.demo.presentation.overview.OverViewFragment">
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        tools:context="com.durian.demo.presentation.overview.OverViewFragment">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -16,12 +18,12 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="vertical">
 
                 <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/spacing_10dp"
                     android:text="@string/over_view_popular_repo"/>
 
@@ -34,12 +36,11 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                tools:ignore="WebViewLayout">
+                android:orientation="vertical">
 
                 <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/spacing_10dp"
                     android:text="@string/over_view_contributions"/>
 
@@ -55,12 +56,12 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="vertical">
 
                 <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/spacing_10dp"
                     android:text="@string/over_view_events"/>
 

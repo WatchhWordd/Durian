@@ -31,19 +31,19 @@ public class OverRepoAdapter extends RecyclerView.Adapter<OverRepoAdapter.OverRe
 
     @Override
     public OverRepoViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        if (view == null) {
-            view = LayoutInflater.from(context).inflate(R.layout.item_popular_repo,
-                    null, false);
-        }
+        view = LayoutInflater.from(context).inflate(R.layout.item_popular_repo,
+                parent, false);
         return new OverRepoViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(OverRepoViewHolder holder, int position) {
-        holder.repo_title
-                .setText(reposInfos.get(position).getName());
-        holder.repo_desc
-                .setText(reposInfos.get(position).getDescription());
+        if (holder != null) {
+            holder.repo_title
+                    .setText(reposInfos.get(position).getName());
+            holder.repo_desc
+                    .setText(reposInfos.get(position).getDescription());
+        }
     }
 
     @Override

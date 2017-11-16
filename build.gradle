@@ -56,7 +56,8 @@ ext {
 
             slf4jApi                : 'org.slf4j:slf4j-api:1.7.21',
             slf4jJdk                : 'org.slf4j:slf4j-jdk14:1.7.21',
-            jodaTime                : 'joda-time:joda-time:2.9.9'
+            jodaTime                : 'joda-time:joda-time:2.9.9',
+            rxrelay                 : 'com.jakewharton.rxrelay2:rxrelay:2.0.0'
     ]
 
 }

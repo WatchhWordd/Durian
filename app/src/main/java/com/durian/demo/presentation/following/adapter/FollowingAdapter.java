@@ -75,8 +75,8 @@ public class FollowingAdapter extends RecyclerView.Adapter<FollowingAdapter.Foll
         public FollowingViewHolder(View itemView) {
             super(itemView);
             avaterView = itemView.findViewById(R.id.id_user_avatar);
-            followingName = itemView.findViewById(R.id.id_stars_repo_title);
-            followerLoginName = itemView.findViewById(R.id.id_stars_repo_desc);
+            followingName = itemView.findViewById(R.id.id_following_name);
+            followerLoginName = itemView.findViewById(R.id.id_following_login_name);
             userBlog = itemView.findViewById(R.id.id_user_bio);
             companyName = itemView.findViewById(R.id.id_user_company_name);
             locationName = itemView.findViewById(R.id.id_user_location_name);

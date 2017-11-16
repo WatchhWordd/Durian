@@ -1,32 +1,30 @@
 package com.durian.demo.base.utils;
 
-import io.reactivex.Flowable;
-import io.reactivex.processors.FlowableProcessor;
-import io.reactivex.processors.PublishProcessor;
-import io.reactivex.subscribers.SerializedSubscriber;
+import com.jakewharton.rxrelay2.PublishRelay;
+import com.jakewharton.rxrelay2.Relay;
+
+import io.reactivex.Observable;
+import io.reactivex.Scheduler;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
 
 
 public class RxBus {
     //相当于Rxjava1.x中的Subject
-    private final FlowableProcessor<Object> mBus;
-    private static volatile RxBus sRxBus = null;
+    private final Relay<Object> mBus;
 
     private RxBus() {
         //调用toSerialized()方法，保证线程安全
-        mBus = PublishProcessor.create().toSerialized();
+        mBus = PublishRelay.create().toSerialized();
     }
 
-    public static synchronized RxBus getDefault() {
-        if (sRxBus == null) {
-            synchronized (RxBus.class) {
-                if (sRxBus == null) {
-                    sRxBus = new RxBus();
-                }
-            }
-        }
-        return sRxBus;
+    private static class Holder {
+        private static RxBus instance = new RxBus();
     }
 
+    public static RxBus getInstance() {
+        return Holder.instance;
+    }
 
     /**
      * 发送消息
@@ -34,35 +32,40 @@ public class RxBus {
      * @param o
      */
     public void post(Object o) {
-        new SerializedSubscriber<>(mBus).onNext(o);
+        mBus.accept(o);
     }
 
     /**
      * 确定接收消息的类型
      *
-     * @param aClass
      * @param <T>
+     * @param aClass
      * @return
      */
-    public <T> Flowable<T> toFlowable(Class<T> aClass) {
+    public <T> Observable<T> toFlowable(Class<T> aClass) {
         return mBus.ofType(aClass);
     }
 
-    /**
-     * remove register
-     */
-    public void removeAll() {
-        //会将所有由mBus生成的Flowable都置completed状态后续的所有消息都收不到了
-        mBus.onComplete();
+    public  void removeFlowable(Class tClass){
+        mBus.hide();
     }
-
     /**
      * 判断是否有订阅者
      *
      * @return
      */
-    public boolean hasSubscribers() {
-        return mBus.hasSubscribers();
+    public boolean hasObservers() {
+        return mBus.hasObservers();
+    }
+
+    public <T> Disposable register(Class<T> eventType, Scheduler scheduler, Consumer<T> onNext) {
+        return toFlowable(eventType).observeOn(scheduler).subscribe(onNext);
+    }
+
+    public void unregister(Disposable disposable) {
+        if (disposable != null && !disposable.isDisposed()) {
+            disposable.dispose();
+        }
     }
 
 }
