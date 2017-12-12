@@ -9,6 +9,14 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/spacing_10dp">
 
+        <Button
+            android:id="@+id/id_main_calculator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="计算器"
+            android:background="@android:color/transparent"
+            android:textColor="@android:color/black"/>
+
         <ImageView
             android:id="@+id/id_main_drawer_avatar"
             android:layout_width="40dp"

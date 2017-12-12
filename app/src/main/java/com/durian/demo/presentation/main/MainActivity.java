@@ -2,7 +2,10 @@ package com.durian.demo.presentation.main;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
@@ -11,6 +14,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -22,6 +26,7 @@ import com.durian.demo.presentation.following.FollowingFragment;
 import com.durian.demo.presentation.main.widget.MainDrawerListener;
 import com.durian.demo.presentation.overview.OverViewContract;
 import com.durian.demo.presentation.overview.OverViewFragment;
+import com.durian.demo.presentation.react.CalculatorReactActivity;
 import com.durian.demo.presentation.repositories.RepositoriesFragment;
 import com.durian.demo.presentation.stars.StarsFragment;
 
@@ -31,11 +36,13 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity implements MainContract.View,
         DrawerLayout.DrawerListener {
 
+    private static final int OVERLAY_PERMISSION_REQ_CODE = 0;
     private MainContract.Presenter presenter;
 
     private Toolbar toolbar;
     private DrawerLayout drawerLayout;
 
+    private Button calculatorButton;
     private View overViewLayout;
     private ImageView overView;
     private View repositoriesLayout;
@@ -143,6 +150,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     }
 
     private void initPersonView() {
+        calculatorButton = (Button) findViewById(R.id.id_main_calculator);
         ImageView avatarView = (ImageView) findViewById(R.id.id_main_drawer_avatar);
         TextView nameView = (TextView) findViewById(R.id.id_main_drawer_user_account);
         TextView orgView = (TextView) findViewById(R.id.id_main_drawer_user_org);
@@ -157,6 +165,18 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
             positionView.setText(userInfo.getLocation());
             joinDataView.setText(userInfo.getCreatedAt());
         }
+        calculatorButton.setOnClickListener(view -> {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                if (!Settings.canDrawOverlays(this)) {
+                    Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
+                            Uri.parse("package:" + getPackageName()));
+                    startActivityForResult(intent, OVERLAY_PERMISSION_REQ_CODE);
+                }else{
+                    Intent intent = new Intent(this, CalculatorReactActivity.class);
+                    startActivity(intent);
+                }
+            }
+        });
     }
 
     private void initContentView() {
@@ -284,5 +304,16 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     @Override
     protected void onDestroy() {
         super.onDestroy();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == OVERLAY_PERMISSION_REQ_CODE) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                if (!Settings.canDrawOverlays(this)) {
+                    // SYSTEM_ALERT_WINDOW permission not granted...
+                }
+            }
+        }
     }
 }
