@@ -28,7 +28,8 @@ public class CalculatorReactActivity extends AppCompatActivity implements Defaul
         mReactRootView = new ReactRootView(this);
         mReactInstanceManager = ReactInstanceManager.builder()
                 .setApplication(getApplication())
-                .setBundleAssetName("index.bundle")
+                .setBundleAssetName("index.android.bundle")
+
                 .addPackage(new MainReactPackage())
                 .setUseDeveloperSupport(BuildConfig.DEBUG)
                 .setInitialLifecycleState(LifecycleState.RESUMED)
