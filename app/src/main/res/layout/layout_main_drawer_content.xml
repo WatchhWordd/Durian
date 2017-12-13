@@ -9,14 +9,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/spacing_10dp">
 
-        <Button
-            android:id="@+id/id_main_calculator"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="计算器"
-            android:background="@android:color/transparent"
-            android:textColor="@android:color/black"/>
-
         <ImageView
             android:id="@+id/id_main_drawer_avatar"
             android:layout_width="40dp"
@@ -36,6 +28,7 @@
                 android:id="@+id/id_main_drawer_user_account"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_8dp"
                 android:drawableLeft="@drawable/ic_perm_identity_white_24dp"
                 android:drawablePadding="@dimen/spacing_4dp"
                 android:gravity="center_vertical"
@@ -45,6 +38,7 @@
                 android:id="@+id/id_main_drawer_user_org"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_8dp"
                 android:drawableLeft="@drawable/ic_business_white_24dp"
                 android:drawablePadding="@dimen/spacing_4dp"
                 android:gravity="center_vertical"
@@ -54,6 +48,7 @@
                 android:id="@+id/id_main_drawer_user_position"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_8dp"
                 android:drawableLeft="@drawable/ic_room_white_24dp"
                 android:drawablePadding="@dimen/spacing_4dp"
                 android:gravity="center_vertical"
@@ -63,11 +58,24 @@
                 android:id="@+id/id_main_drawer_user_join_date"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_8dp"
                 android:drawableLeft="@drawable/ic_date_range_white_24dp"
                 android:drawablePadding="@dimen/spacing_4dp"
                 android:gravity="center_vertical"
-                android:textColor="@android:color/white"
-                android:maxLines="1"/>
+                android:maxLines="1"
+                android:textColor="@android:color/white"/>
+
+            <TextView
+                android:id="@+id/id_main_calculator"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_8dp"
+                android:background="@android:color/transparent"
+                android:drawableLeft="@drawable/ic_exit_to_app_white_24dp"
+                android:drawablePadding="@dimen/spacing_4dp"
+                android:gravity="center_vertical"
+                android:text="工具"
+                android:textColor="@android:color/white"/>
         </LinearLayout>
     </RelativeLayout>
 
@@ -80,6 +88,7 @@
         android:id="@+id/id_main_drawer_navigation_menu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_10dp"
         android:orientation="vertical">
 
         <RelativeLayout

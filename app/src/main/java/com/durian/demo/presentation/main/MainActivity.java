@@ -14,7 +14,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -42,7 +41,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     private Toolbar toolbar;
     private DrawerLayout drawerLayout;
 
-    private Button calculatorButton;
+    private TextView calculatorButton;
     private View overViewLayout;
     private ImageView overView;
     private View repositoriesLayout;
@@ -150,7 +149,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     }
 
     private void initPersonView() {
-        calculatorButton = (Button) findViewById(R.id.id_main_calculator);
+        calculatorButton = (TextView) findViewById(R.id.id_main_calculator);
         ImageView avatarView = (ImageView) findViewById(R.id.id_main_drawer_avatar);
         TextView nameView = (TextView) findViewById(R.id.id_main_drawer_user_account);
         TextView orgView = (TextView) findViewById(R.id.id_main_drawer_user_org);
