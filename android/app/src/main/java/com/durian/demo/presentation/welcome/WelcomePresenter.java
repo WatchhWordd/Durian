@@ -12,7 +12,7 @@ import android.util.Log;
 
 public class WelcomePresenter implements WelcomeContract.Presenter {
 
-    private static final int COUNT_TIME = 5 * 1000;
+    private static final int COUNT_TIME = 1 * 1000;
     private WelcomeContract.View welcomeView;
 
     //倒计时

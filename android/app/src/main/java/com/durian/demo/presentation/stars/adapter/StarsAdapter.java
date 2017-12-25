@@ -32,18 +32,26 @@ public class StarsAdapter extends RecyclerView.Adapter<StarsAdapter.StarsViewHol
 
     @Override
     public StarsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        if (view == null) {
-            view = LayoutInflater.from(context).inflate(R.layout.item_starred_repo, parent, false);
-        }
+        view = LayoutInflater.from(context).inflate(R.layout.item_starred_repo, parent, false);
         return new StarsViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(StarsViewHolder holder, int position) {
-
         if (holder != null) {
             holder.titleView.setText(reposInfos.get(position).getName());
             holder.contentView.setText(reposInfos.get(position).getDescription());
+            if (reposInfos.get(position).getStargazersCount() > 0) {
+                holder.iconStars.setSelected(true);
+            } else {
+                holder.iconStars.setSelected(false);
+            }
+
+            if (reposInfos.get(position).isFork()) {
+                holder.iconRadio.setSelected(true);
+            } else {
+                holder.iconRadio.setSelected(false);
+            }
         }
     }
 
@@ -63,8 +71,8 @@ public class StarsAdapter extends RecyclerView.Adapter<StarsAdapter.StarsViewHol
             super(itemView);
             titleView = itemView.findViewById(R.id.id_stars_repo_title);
             contentView = itemView.findViewById(R.id.id_stars_repo_desc);
-            iconStars = itemView.findViewById(R.id.id_icon_star);
-            iconRadio = itemView.findViewById(R.id.id_icon_radio);
+            iconStars = itemView.findViewById(R.id.id_icon_stars_repo_star);
+            iconRadio = itemView.findViewById(R.id.id_icon_stars_repo_radio);
         }
     }
 }

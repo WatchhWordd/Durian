@@ -33,10 +33,7 @@ public class FollowersAdapter extends RecyclerView.Adapter<FollowersAdapter.Foll
 
     @Override
     public FollowersViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        if (view == null) {
-            view = LayoutInflater.from(context).inflate(R.layout.item_followers_info, parent, false);
-        }
-
+        view = LayoutInflater.from(context).inflate(R.layout.item_followers_info, parent, false);
         return new FollowersViewHolder(view);
     }
 

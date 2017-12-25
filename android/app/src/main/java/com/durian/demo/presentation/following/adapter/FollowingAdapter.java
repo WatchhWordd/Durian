@@ -33,10 +33,7 @@ public class FollowingAdapter extends RecyclerView.Adapter<FollowingAdapter.Foll
 
     @Override
     public FollowingViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        if (view == null) {
-            view = LayoutInflater.from(context).inflate(R.layout.item_following_info, parent, false);
-        }
-
+        view = LayoutInflater.from(context).inflate(R.layout.item_following_info, parent, false);
         return new FollowingViewHolder(view);
     }
 
@@ -63,7 +60,7 @@ public class FollowingAdapter extends RecyclerView.Adapter<FollowingAdapter.Foll
         return reposInfos.size();
     }
 
-    public static class  FollowingViewHolder extends RecyclerView.ViewHolder {
+    public static class FollowingViewHolder extends RecyclerView.ViewHolder {
 
         private ImageView avaterView;
         private TextView followingName;

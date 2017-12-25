@@ -2,7 +2,7 @@ package com.durian.demo.presentation.stars;
 
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
@@ -76,7 +76,7 @@ public class StarsFragment extends BaseFragment implements StarsContract.View {
         recyclerView.addItemDecoration(new MarginDecoration(context));
         recyclerView.setItemAnimator(new RippleItemAnimator());
         recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new GridLayoutManager(context,1));
+        recyclerView.setLayoutManager(new LinearLayoutManager(context));
         starsAdapter = new StarsAdapter(context,reposInfos);
         recyclerView.setAdapter(starsAdapter);
     }
@@ -97,6 +97,7 @@ public class StarsFragment extends BaseFragment implements StarsContract.View {
 
     @Override
     public void showDataListView(ArrayList<ReposInfo> reposInfos) {
+        this.reposInfos.clear();
         swipeRefreshLayout.setRefreshing(false);
         this.reposInfos.addAll(reposInfos);
         starsAdapter.notifyDataSetChanged();
@@ -105,6 +106,5 @@ public class StarsFragment extends BaseFragment implements StarsContract.View {
     @Override
     public void showDataFail(String fail) {
         swipeRefreshLayout.setRefreshing(false);
-
     }
 }
