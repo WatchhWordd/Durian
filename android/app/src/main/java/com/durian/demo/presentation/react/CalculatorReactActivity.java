@@ -19,22 +19,22 @@ import com.facebook.react.shell.MainReactPackage;
  */
 
 public class CalculatorReactActivity extends AppCompatActivity implements DefaultHardwareBackBtnHandler {
-    private ReactRootView mReactRootView;
-    private ReactInstanceManager mReactInstanceManager;
+    private ReactRootView reactRootView;
+    private ReactInstanceManager reactInstanceManager;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mReactRootView = new ReactRootView(this);
-        mReactInstanceManager = ReactInstanceManager.builder()
+        reactRootView = new ReactRootView(this);
+        reactInstanceManager = ReactInstanceManager.builder()
                 .setApplication(getApplication())
                 .setBundleAssetName("index.android.bundle")
                 .addPackage(new MainReactPackage())
                 .setUseDeveloperSupport(BuildConfig.DEBUG)
                 .setInitialLifecycleState(LifecycleState.RESUMED)
                 .build();
-        mReactRootView.startReactApplication(mReactInstanceManager, "ReactCalculator", null);
-        setContentView(mReactRootView);
+        reactRootView.startReactApplication(reactInstanceManager, "ReactCalculator", null);
+        setContentView(reactRootView);
     }
 
     @Override
@@ -46,8 +46,8 @@ public class CalculatorReactActivity extends AppCompatActivity implements Defaul
     protected void onPause() {
         super.onPause();
 
-        if (mReactInstanceManager != null) {
-            mReactInstanceManager.onHostPause(this);
+        if (reactInstanceManager != null) {
+            reactInstanceManager.onHostPause(this);
         }
     }
 
@@ -55,8 +55,8 @@ public class CalculatorReactActivity extends AppCompatActivity implements Defaul
     protected void onResume() {
         super.onResume();
 
-        if (mReactInstanceManager != null) {
-            mReactInstanceManager.onHostResume(this, this);
+        if (reactInstanceManager != null) {
+            reactInstanceManager.onHostResume(this, this);
         }
     }
 
@@ -64,23 +64,23 @@ public class CalculatorReactActivity extends AppCompatActivity implements Defaul
     protected void onDestroy() {
         super.onDestroy();
 
-        if (mReactInstanceManager != null) {
-            mReactInstanceManager.onHostDestroy();
+        if (reactInstanceManager != null) {
+            reactInstanceManager.onHostDestroy();
         }
     }
 
     @Override
     public void onBackPressed() {
-        if (mReactInstanceManager != null) {
-            mReactInstanceManager.onBackPressed();
+        if (reactInstanceManager != null) {
+            reactInstanceManager.onBackPressed();
         } else {
             super.onBackPressed();
         }
     }
 
     public boolean onKeyUp(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_MENU && mReactInstanceManager != null) {
-            mReactInstanceManager.showDevOptionsDialog();
+        if (keyCode == KeyEvent.KEYCODE_MENU && reactInstanceManager != null) {
+            reactInstanceManager.showDevOptionsDialog();
             return true;
         }
         return super.onKeyUp(keyCode, event);

@@ -1,6 +1,7 @@
 package com.durian.demo.presentation.repositories.adpter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 
 import com.durian.demo.R;
 import com.durian.demo.data.net.bean.ReposInfo;
+import com.durian.demo.presentation.webview.WebActivity;
 
 import java.util.ArrayList;
 
@@ -45,6 +47,11 @@ public class RepositoriesAdapter extends RecyclerView.Adapter<RepositoriesAdapte
         if (holder != null) {
             holder.repoTitle.setText(reposInfoArrayList.get(position).getName());
             holder.repoDesc.setText(reposInfoArrayList.get(position).getDescription());
+            holder.itemView.setOnClickListener(view -> {
+                Intent intent = new Intent(context, WebActivity.class);
+                intent.putExtra(WebActivity.LOAD_URL,reposInfoArrayList.get(position).getHtmlUrl());
+                context.startActivity(intent);
+            });
         }
     }
 

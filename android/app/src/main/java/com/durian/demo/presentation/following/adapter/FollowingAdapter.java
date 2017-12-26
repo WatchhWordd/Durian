@@ -1,6 +1,7 @@
 package com.durian.demo.presentation.following.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.durian.demo.R;
 import com.durian.demo.data.net.bean.UserInfo;
+import com.durian.demo.presentation.webview.WebActivity;
 
 import java.util.ArrayList;
 
@@ -52,6 +54,11 @@ public class FollowingAdapter extends RecyclerView.Adapter<FollowingAdapter.Foll
             }
             holder.companyName.setText(reposInfos.get(position).getCompany());
             holder.locationName.setText(reposInfos.get(position).getLocation());
+            holder.itemView.setOnClickListener(childView ->{
+                Intent intent = new Intent(context, WebActivity.class);
+                intent.putExtra(WebActivity.LOAD_URL,reposInfos.get(position).getHtmlUrl());
+                context.startActivity(intent);
+            });
         }
     }
 

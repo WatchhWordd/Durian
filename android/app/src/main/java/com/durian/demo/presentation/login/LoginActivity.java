@@ -80,8 +80,6 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
     public void doLogin() {
         String userName = usernameView.getText().toString().trim();
         String passWord = passwordView.getText().toString().trim();
-        userName ="WatchhWordd";
-        passWord = "zyb19900920";
         if (checkUserNamePasswordVaildate(userName,passWord)){
             showLoginDialog();
             presenter.fetchUserInfoByUserName(userName, passWord);

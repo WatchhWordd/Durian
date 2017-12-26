@@ -1,6 +1,7 @@
 package com.durian.demo.presentation.stars.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 
 import com.durian.demo.R;
 import com.durian.demo.data.net.bean.ReposInfo;
+import com.durian.demo.presentation.webview.WebActivity;
 
 import java.util.ArrayList;
 
@@ -52,6 +54,11 @@ public class StarsAdapter extends RecyclerView.Adapter<StarsAdapter.StarsViewHol
             } else {
                 holder.iconRadio.setSelected(false);
             }
+            holder.itemView.setOnClickListener(childView ->{
+                Intent intent = new Intent(context, WebActivity.class);
+                intent.putExtra(WebActivity.LOAD_URL,reposInfos.get(position).getHtmlUrl());
+                context.startActivity(intent);
+            });
         }
     }
 

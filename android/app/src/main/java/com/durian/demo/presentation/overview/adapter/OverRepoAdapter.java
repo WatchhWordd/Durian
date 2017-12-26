@@ -1,6 +1,7 @@
 package com.durian.demo.presentation.overview.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.widget.TextView;
 
 import com.durian.demo.R;
 import com.durian.demo.data.net.bean.ReposInfo;
+import com.durian.demo.presentation.webview.WebActivity;
 
 import java.util.ArrayList;
 
@@ -43,6 +45,11 @@ public class OverRepoAdapter extends RecyclerView.Adapter<OverRepoAdapter.OverRe
                     .setText(reposInfos.get(position).getName());
             holder.repo_desc
                     .setText(reposInfos.get(position).getDescription());
+            holder.itemView.setOnClickListener(childView ->{
+                Intent intent = new Intent(context, WebActivity.class);
+                intent.putExtra(WebActivity.LOAD_URL,reposInfos.get(position).getHtmlUrl());
+                context.startActivity(intent);
+            });
         }
     }
 

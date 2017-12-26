@@ -43,7 +43,7 @@ android {
 
     configurations.all {
         resolutionStrategy.force 'com.google.code.findbugs:jsr305:3.0.0'
-        resolutionStrategy.force dep.okHttp
+        resolutionStrategy.force 'com.squareup.okhttp3:okhttp:3.4.1'
     }
 }
 
