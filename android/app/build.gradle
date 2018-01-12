@@ -10,7 +10,7 @@ android {
         minSdkVersion 16
         targetSdkVersion 25
         versionCode 1
-        versionName "1.0"
+        versionName "1.0.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
 
@@ -64,6 +64,7 @@ dependencies {
     compile dep.glide
     compile dep.jodaTime
     compile dep.rxrelay
+    compile dep.hotfix
     compile project(':clientcloud')
     compile project(':durianlogger')
 }

@@ -12,6 +12,7 @@ import com.durian.gitlogger.CrashHandler;
 import com.durian.gitlogger.Log;
 import com.github.clientcloud.ApiServer;
 import com.github.clientcloud.GitHubCloud;
+import com.taobao.sophix.SophixManager;
 
 import java.util.List;
 
@@ -33,8 +34,13 @@ public class GitApplication extends Application {
         context = getApplicationContext();
         if (getPackageName().equals(getProcessName(this, android.os.Process.myPid()))) {
             initCommonponent();
+            initQueryLoad();
         }
 
+    }
+
+    private void initQueryLoad() {
+        SophixManager.getInstance().queryAndLoadNewPatch();
     }
 
     private void initCommonponent() {
@@ -46,7 +52,7 @@ public class GitApplication extends Application {
     private void initLogger() {
         Log.initialize(this);
         CrashHandler.getInstance().initialize(this);
-        CrashHandler.getInstance().setHandlerHook((var1,var2)->{
+        CrashHandler.getInstance().setHandlerHook((var1, var2) -> {
             Log.getLogger().error("app exit because exception");
             android.os.Process.killProcess(android.os.Process.myPid());
             System.exit(0);

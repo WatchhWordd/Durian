@@ -225,6 +225,24 @@
                 android:src="@drawable/ic_arrow_forward_white_36dp"
                 android:visibility="invisible"/>
         </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/id_main_drawer_item_menu_des"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/item_layout_selector"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_people_white_36dp"
+                android:drawablePadding="@dimen/spacing_4dp"
+                android:gravity="center"
+                android:text="欢迎使用GITHUB客户端"
+                android:textColor="@android:color/white"/>
+        </RelativeLayout>
     </LinearLayout>
 
 </LinearLayout>
