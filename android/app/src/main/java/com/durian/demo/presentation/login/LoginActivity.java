@@ -1,5 +1,6 @@
 package com.durian.demo.presentation.login;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -14,10 +15,18 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.durian.demo.GitDataInjection;
-import com.durian.demo.presentation.main.MainActivity;
 import com.durian.demo.R;
 import com.durian.demo.base.utils.ConfigUtil;
 import com.durian.demo.data.net.bean.UserInfo;
+import com.durian.demo.presentation.main.MainActivity;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 
 /**
  * @author zhangyb
@@ -42,10 +51,9 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_main);
         initViews();
-        new LoginPresenter(this,this, GitDataInjection.provideGetUserInfo());
+        new LoginPresenter(this, this, GitDataInjection.provideGetUserInfo());
         this.presenter.start();
     }
-
 
     @Override
     public void initViews() {
@@ -58,6 +66,17 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
     private void initSignView() {
         signInButton = (Button) findViewById(R.id.sign_in_button);
         signInButton.setOnClickListener(view -> doLogin());
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        String[] content = new String[2];
+        if (loadData().contains(";")) {
+            content = loadData().split(";");
+        }
+        usernameView.setText(content[0]);
+        passwordView.setText(content[1]);
     }
 
     @Override
@@ -80,7 +99,7 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
     public void doLogin() {
         String userName = usernameView.getText().toString().trim();
         String passWord = passwordView.getText().toString().trim();
-        if (checkUserNamePasswordVaildate(userName,passWord)){
+        if (checkUserNamePasswordVaildate(userName, passWord)) {
             showLoginDialog();
             presenter.fetchUserInfoByUserName(userName, passWord);
         }
@@ -95,7 +114,7 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
 
     @Override
     public void onLoginFailed(String error) {
-        dismissLoginDialog();;
+        dismissLoginDialog();
         Toast.makeText(this, error, Toast.LENGTH_LONG)
                 .show();
     }
@@ -120,5 +139,64 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
             return false;
         }
         return true;
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        saveData();
+    }
+
+    private void saveData() {
+        String saveUserName = usernameView.getText().toString();
+        String savePassWord = passwordView.getText().toString();
+
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(saveUserName);
+        stringBuilder.append(";");
+        stringBuilder.append(savePassWord);
+        FileOutputStream fileOutputStream;
+        BufferedWriter bufferedWriter = null;
+
+        try {
+            fileOutputStream = openFileOutput("userInfo", Context.MODE_PRIVATE);
+            bufferedWriter = new BufferedWriter(new OutputStreamWriter(fileOutputStream));
+            bufferedWriter.write(stringBuilder.toString());
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (bufferedWriter != null) {
+                try {
+                    bufferedWriter.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    private String loadData() {
+        FileInputStream fileInputStream;
+        BufferedReader bufferedReader = null;
+        StringBuilder content = new StringBuilder();
+        try {
+            fileInputStream = openFileInput("userInfo");
+            bufferedReader = new BufferedReader(new InputStreamReader(fileInputStream));
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
+                content.append(line);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (bufferedReader != null) {
+                try {
+                    bufferedReader.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return content.toString();
     }
 }
