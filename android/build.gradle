@@ -3,11 +3,10 @@
 buildscript {
     repositories {
         jcenter()
+        google()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.3.3'
-        classpath 'me.tatarka:gradle-retrolambda:3.3.1'
-        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
+        classpath 'com.android.tools.build:gradle:3.0.1'
     }
 }
 
@@ -21,6 +20,7 @@ allprojects {
         maven {
             url "http://maven.aliyun.com/nexus/content/repositories/releases"
         }
+        google()
     }
 }
 
@@ -30,12 +30,15 @@ task clean(type: Delete) {
 ext {
     // Sdk and tools
     minSdkVersion = 16
-    targetSdkVersion = 24
-    compileSdkVersion = 24
-    buildToolsVersion = '24.0.2'
+    targetSdkVersion = 26
+    compileSdkVersion = 26
+    buildToolsVersion = '26.0.2'
 
     // App dependencies
-    supportLibraryVersion = '24.2.1'
+    supportLibraryVersion = '27.0.2'
+    constraintVersion = '1.0.2'
+    designVersion = '27.0.2'
+    cardVersion = '27.0.2'
     junitVersion = '4.12'
 
     dep = [
@@ -59,5 +62,4 @@ ext {
             rxrelay                 : 'com.jakewharton.rxrelay2:rxrelay:2.0.0',
             hotfix                  : 'com.aliyun.ams:alicloud-android-hotfix:3.1.9'
     ]
-
 }

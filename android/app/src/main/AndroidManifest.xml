@@ -3,10 +3,13 @@
           package="com.durian.demo">
 
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+
 
     <application
         android:name="com.durian.demo.SophixGitApplication"
@@ -72,6 +75,10 @@
             vvS1Hf/h/16h1TgWD0CgYB3C3UPQjhqCAzhCLhjns86IPoRnqbBvOlpvxKYknh8WiMJaYnccJcDacBbpD3btM2b
             Zulgm28zpkmevF+GkH7tOpFM7dtv0igfWV7xp1XRXN6c4mhayMqaJ/zqYDVuDJlxOlswvapcMbNZhnNwVTqls8R
             iTdoBMD1Ms854F6bh5A=="/>
+
+        <meta-data
+            android:name="com.baidu.lbsapi.API_KEY"
+            android:value="gIj7BkZ0HlAVxocE1hg2joHkZYkmT3Kp"/>
     </application>
 
 </manifest>

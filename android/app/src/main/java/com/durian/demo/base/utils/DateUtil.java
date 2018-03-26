@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 /**
  * 时间格式
@@ -47,5 +48,28 @@ public class DateUtil {
         c.setTime(date);
         c.set(Calendar.DAY_OF_MONTH, 1);
         return c.getTime();
+    }
+
+    /*
+     *将时间戳转换为时间
+     */
+    public static String stampToDate(long lt){
+        String res;
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(FORMAT_1, Locale.CHINA);
+        Date date = new Date(lt);
+        res = simpleDateFormat.format(date);
+        return res;
+    }
+
+    /**
+     * 掉此方法输入所要转换的时间输入例如（"2017-11-01 22:11:00"）返回时间戳
+     *
+     * @param time
+     * @return 时间戳
+     */
+    public static long dateToStamp(String time) throws ParseException{
+        SimpleDateFormat sdr = new SimpleDateFormat(FORMAT_1, Locale.CHINA);
+        Date date = sdr.parse(time);
+        return date.getTime();
     }
 }
