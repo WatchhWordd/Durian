@@ -98,7 +98,7 @@ public abstract class ApiServer {
 
     public Retrofit.Builder onRetrofitBuilderCreated(Retrofit.Builder builder, Context context){
         return builder;
-    };
+    }
     public abstract List<String> getBaseUrlList();
 
     public abstract List<Initer> getIniterList();

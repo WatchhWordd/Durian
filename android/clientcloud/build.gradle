@@ -8,7 +8,6 @@ buildscript {
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
     buildToolsVersion rootProject.ext.buildToolsVersion
-
     defaultConfig {
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
@@ -34,20 +33,19 @@ android {
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile "com.android.support:appcompat-v7:${rootProject.ext.supportLibraryVersion}"
-    compile "com.android.support.constraint:constraint-layout:${rootProject.ext.constraintVersion}"
-    testCompile "junit:junit:${rootProject.ext.junitVersion}"
-    compile dep.retrofit
-    compile dep.retrofitGsonConverter
-    compile dep.retrofitRxJavaAdapter
-    compile dep.okHttp
-    compile dep.okHttpLoggingInterceptor
-    compile dep.retrofitScalarsConverter
-    compile dep.rxJava
-    compile dep.rxAndroid
-    compile project(':durianlogger')
+    implementation "com.android.support:appcompat-v7:${rootProject.ext.supportLibraryVersion}"
+    implementation "com.android.support.constraint:constraint-layout:${rootProject.ext.constraintVersion}"
+    testImplementation "junit:junit:${rootProject.ext.junitVersion}"
+    api dep.retrofit
+    api dep.retrofitGsonConverter
+    api dep.retrofitRxJavaAdapter
+    api dep.okHttpLoggingInterceptor
+    api dep.retrofitScalarsConverter
+    api dep.rxJava
+    api dep.rxAndroid
+    implementation project(':durianlogger')
 }

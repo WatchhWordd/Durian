@@ -32,10 +32,6 @@ class AppServerHeadersInterceptor implements Interceptor {
         this.apiServer = apiServer;
     }
 
-    public AppServerHeadersInterceptor() {
-
-    }
-
     @Override
     public Response intercept(Chain chain) throws IOException {
         Request request = chain.request();

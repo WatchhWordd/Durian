@@ -6,7 +6,7 @@ buildscript {
         google()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.0.1'
+        classpath 'com.android.tools.build:gradle:3.1.0'
     }
 }
 
@@ -20,6 +20,10 @@ allprojects {
         maven {
             url "http://maven.aliyun.com/nexus/content/repositories/releases"
         }
+
+        maven {
+            url "https://oss.sonatype.org/content/repositories/snapshots"
+        }
         google()
     }
 }
@@ -30,9 +34,9 @@ task clean(type: Delete) {
 ext {
     // Sdk and tools
     minSdkVersion = 16
-    targetSdkVersion = 26
-    compileSdkVersion = 26
-    buildToolsVersion = '26.0.2'
+    targetSdkVersion = 27
+    compileSdkVersion = 27
+    buildToolsVersion = '27.0.3'
 
     // App dependencies
     supportLibraryVersion = '27.0.2'
@@ -56,8 +60,8 @@ ext {
             treasureAnnotation      : 'com.baoyz.treasure:treasure-compiler:0.7.4',
             glide                   : 'jp.wasabeef:glide-transformations:2.0.1',
 
-            slf4jApi                : 'org.slf4j:slf4j-api:1.7.21',
-            slf4jJdk                : 'org.slf4j:slf4j-jdk14:1.7.21',
+            slf4jApi                : 'org.slf4j:slf4j-api:1.7.25',
+            slf4jJdk                : 'org.slf4j:slf4j-jdk14:1.7.25',
             jodaTime                : 'joda-time:joda-time:2.9.9',
             rxrelay                 : 'com.jakewharton.rxrelay2:rxrelay:2.0.0',
             hotfix                  : 'com.aliyun.ams:alicloud-android-hotfix:3.1.9'

@@ -57,14 +57,14 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
 
     @Override
     public void initViews() {
-        usernameView = (AutoCompleteTextView) findViewById(R.id.username);
-        passwordView = (EditText) findViewById(R.id.password);
-        loginFormPane = (LinearLayout) findViewById(R.id.login_form_pane);
+        usernameView = findViewById(R.id.username);
+        passwordView = findViewById(R.id.password);
+        loginFormPane = findViewById(R.id.login_form_pane);
         initSignView();
     }
 
     private void initSignView() {
-        signInButton = (Button) findViewById(R.id.sign_in_button);
+        signInButton = findViewById(R.id.sign_in_button);
         signInButton.setOnClickListener(view -> doLogin());
     }
 

@@ -2,6 +2,7 @@ package com.durian.gitlogger;
 
 import android.content.Context;
 
+
 import org.slf4j.Logger;
 
 import java.io.File;
