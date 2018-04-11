@@ -9,9 +9,9 @@ import java.util.ArrayList;
  * @date 2017/11/15
  */
 
-public class LoadParam implements Serializable{
+public class LoadParam implements Serializable {
 
-    private int type =0 ;//0:reposList
+    private int type = 0;//0:reposList
 
     private ArrayList<UserInfo> userInfos;
 
@@ -29,6 +29,9 @@ public class LoadParam implements Serializable{
     }
 
     public ArrayList<UserInfo> getUserInfos() {
+        if (userInfos == null) {
+            return new ArrayList<>();
+        }
         return userInfos;
     }
 
@@ -37,6 +40,9 @@ public class LoadParam implements Serializable{
     }
 
     public ArrayList<ReposInfo> getReposInfos() {
+        if (reposInfos == null) {
+            return new ArrayList<>();
+        }
         return reposInfos;
     }
 

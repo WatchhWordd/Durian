@@ -55,6 +55,8 @@ dependencies {
     androidTestImplementation('com.android.support.test.espresso:espresso-core:3.0.1', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
+    testImplementation "com.android.support.test:runner:1.0.2-alpha1"
+    testImplementation "com.android.support.test:rules:1.0.2-alpha1"
     androidTestImplementation 'com.android.support.test:monitor:1.0.2-alpha1'
     testImplementation "junit:junit:${rootProject.ext.junitVersion}"
     testImplementation 'org.mockito:mockito-core:2.+'
@@ -63,7 +65,7 @@ dependencies {
     testImplementation 'org.powermock:powermock-api-mockito2:1.7.3'
     //注意这里是mockito2
     testImplementation 'org.powermock:powermock-classloading-xstream:1.7.3'
-    testImplementation 'org.robolectric:robolectric:3.7.1'
+    testImplementation 'org.robolectric:robolectric:3.8'
     testImplementation 'org.robolectric:shadows-support-v4:3.4-rc2'
 
     implementation "com.android.support:appcompat-v7:${rootProject.ext.supportLibraryVersion}"

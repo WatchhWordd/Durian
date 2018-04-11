@@ -42,15 +42,13 @@ public class OverViewFragment extends BaseFragment implements OverViewContract.V
             ".com/users/%1$s/contributions?from=%2$s&to=%3$s&full_graph=1";
     private static final String ARG_USERNAME = "param1";
     private static final String ARG_PARAM2 = "param2";
-
-    private String userName;
-    private String params;
-    private ArrayList<ReposInfo> reposInfos;
-
     RecyclerView popularRepoRecyclerView;
     RecyclerView overViewEventsRecyclerView;
     SwipeRefreshLayout swipeContainer;
     WebView contributionsWebView;
+    private String userName;
+    private String params;
+    private ArrayList<ReposInfo> reposInfos;
     private OverRepoAdapter overRepoAdapter;
     private OverEventAdapter overEventAdapter;
     private OverViewContract.Presenter presenter;
@@ -78,28 +76,6 @@ public class OverViewFragment extends BaseFragment implements OverViewContract.V
         initEventRecycleView(view);
         initSwipeLayoutView(view);
         initWebViewLayoutView(view);
-    }
-
-    private void initRegisterPost() {
-        disposable = RxBus.getInstance().toFlowable(LoadParam.class)
-                .subscribe(new Consumer<LoadParam>() {
-                    @Override
-                    public void accept(LoadParam result) {
-                        Log.getLogger().info("overView=" + result.getType());
-                        OverViewFragment.this.refreshOverRepose(result);
-                    }
-                }, new Consumer<Throwable>() {
-                    @Override
-                    public void accept(Throwable throwable) {
-                        Log.getLogger().info("overView_error=" + throwable.getCause());
-                    }
-                });
-    }
-
-    private void refreshOverRepose(LoadParam result) {
-        if (result.getType() == 0) {
-            showRepoesView(result.getReposInfos());
-        }
     }
 
     private void initRepoRecycleView(View view) {
@@ -154,17 +130,8 @@ public class OverViewFragment extends BaseFragment implements OverViewContract.V
         contributionsWebView.reload();
     }
 
-
-    @Override
-    public void initData() {
-        initRegisterPost();
-        if (getArguments() != null) {
-            userName = getArguments().getString(ARG_USERNAME);
-            params = getArguments().getString(ARG_PARAM2);
-        }
-
-        new OverViewPresenter(context, this);
-        presenter.start();
+    public int getScale() {
+        return ScreenUtil.getWebViewScale(context, 720);
     }
 
     private String getContributionsUrl() {
@@ -179,13 +146,38 @@ public class OverViewFragment extends BaseFragment implements OverViewContract.V
         return url;
     }
 
-    public int getScale() {
-        return ScreenUtil.getWebViewScale(context, 720);
+    @Override
+    public void initData() {
+        initRegisterPost();
+        if (getArguments() != null) {
+            userName = getArguments().getString(ARG_USERNAME);
+            params = getArguments().getString(ARG_PARAM2);
+        }
+
+        new OverViewPresenter(context, this);
+        presenter.start();
     }
 
-    @Override
-    public void setPresenter(OverViewContract.Presenter presenter) {
-        this.presenter = presenter;
+    private void initRegisterPost() {
+        disposable = RxBus.getInstance().toFlowable(LoadParam.class)
+                .subscribe(new Consumer<LoadParam>() {
+                    @Override
+                    public void accept(LoadParam result) {
+                        Log.getLogger().info("overView=" + result.getType());
+                        OverViewFragment.this.refreshOverRepose(result);
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) {
+                        Log.getLogger().info("overView_error=" + throwable.getCause());
+                    }
+                });
+    }
+
+    private void refreshOverRepose(LoadParam result) {
+        if (result.getType() == 0) {
+            showRepoesView(result.getReposInfos());
+        }
     }
 
     @Override
@@ -209,6 +201,11 @@ public class OverViewFragment extends BaseFragment implements OverViewContract.V
     @Override
     public void showStarsView(ArrayList<ReposInfo> reposInfos) {
 
+    }
+
+    @Override
+    public void setPresenter(OverViewContract.Presenter presenter) {
+        this.presenter = presenter;
     }
 
     @Override
