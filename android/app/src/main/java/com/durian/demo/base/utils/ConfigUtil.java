@@ -2,8 +2,10 @@ package com.durian.demo.base.utils;
 
 import android.content.Context;
 import android.support.v7.app.AlertDialog;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.durian.demo.R;
 
 /**
@@ -28,6 +30,9 @@ public class ConfigUtil {
         loadingDialog.show();
         loadingDialog.getWindow()
                 .setContentView(R.layout.layout_loading_dialog);
+        ImageView imageView=loadingDialog.findViewById(R.id.loading_dlg_image);
+        Glide.with(context).load(context.getResources().getDrawable(R.drawable.ic_github_loading))
+                .asGif().into(imageView);
         ((TextView) loadingDialog.findViewById(R.id.loading_dlg_echo_text)).setText(content);
         return loadingDialog;
     }
