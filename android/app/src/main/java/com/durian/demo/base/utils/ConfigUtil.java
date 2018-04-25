@@ -31,7 +31,7 @@ public class ConfigUtil {
         loadingDialog.getWindow()
                 .setContentView(R.layout.layout_loading_dialog);
         ImageView imageView=loadingDialog.findViewById(R.id.loading_dlg_image);
-        Glide.with(context).load(context.getResources().getDrawable(R.drawable.ic_github_loading))
+        Glide.with(context).load(R.drawable.ic_github_loading)
                 .asGif().into(imageView);
         ((TextView) loadingDialog.findViewById(R.id.loading_dlg_echo_text)).setText(content);
         return loadingDialog;

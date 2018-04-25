@@ -34,7 +34,7 @@ public class GitApplication extends Application {
         context = getApplicationContext();
         if (getPackageName().equals(getProcessName(this, android.os.Process.myPid()))) {
             initCommonponent();
-            initQueryLoad();
+           // initQueryLoad();
         }
 
     }

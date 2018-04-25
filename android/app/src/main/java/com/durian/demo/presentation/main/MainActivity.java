@@ -28,6 +28,7 @@ import com.durian.demo.presentation.overview.OverViewFragment;
 import com.durian.demo.presentation.react.CalculatorReactActivity;
 import com.durian.demo.presentation.repositories.RepositoriesFragment;
 import com.durian.demo.presentation.stars.StarsFragment;
+import com.durian.demo.presentation.viewshow.ViewShowActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -175,6 +176,11 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
                     startActivity(intent);
                 }
             }
+        });
+
+        joinDataView.setOnClickListener(view->{
+            Intent intent = new Intent(this, ViewShowActivity.class);
+            startActivity(intent);
         });
     }
 
