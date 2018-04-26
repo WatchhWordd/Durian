@@ -3,12 +3,9 @@ package com.durian.demo.presentation.viewshow;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.view.Gravity;
-import android.view.ViewGroup;
-import android.widget.FrameLayout;
 
 import com.durian.demo.R;
-import com.durian.demo.base.widget.ShaderView;
+import com.durian.demo.base.widget.ZhiFuBaoCircle;
 
 /**
  * @author zhangyb
@@ -27,14 +24,8 @@ public class ViewShowActivity extends AppCompatActivity implements ViewShowContr
     }
 
     private void initView() {
-        FrameLayout rootParent = findViewById(R.id.root_parent);
-        FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.MATCH_PARENT);
-        layoutParams.gravity = Gravity.CENTER;
-        ShaderView areaView = new ShaderView(this);
-        areaView.setLayoutParams(layoutParams);
-        rootParent.addView(areaView,layoutParams);
+        ZhiFuBaoCircle zhiFuBaoCircle = findViewById(R.id.zhiFuView);
+        zhiFuBaoCircle.setSesameValues(600);
     }
 
     @Override
