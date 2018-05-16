@@ -19,6 +19,7 @@ import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.LinearInterpolator;
 
 import com.durian.demo.R;
+import com.durian.demo.base.utils.ScreenUtil;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -72,13 +73,13 @@ public class ZhiFuBaoCircle extends View {
 
     public ZhiFuBaoCircle(Context context) {
         super(context);
-        initView();
+        initView(context);
     }
 
-    private void initView() {
+    private void initView(Context context) {
 
-        defaultSize = dp2px(300);
-        destCircle = dp2px(12);
+        defaultSize = ScreenUtil.dp2px(context,300);
+        destCircle = ScreenUtil.dp2px(context,12);
         //外层圆环画笔
         outPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         outPaint.setStrokeWidth(8);
@@ -133,14 +134,9 @@ public class ZhiFuBaoCircle extends View {
         matrix = new Matrix();
     }
 
-    public int dp2px(int values) {
-        float density = getResources().getDisplayMetrics().density;
-        return (int) (values * density + 0.5f);
-    }
-
     public ZhiFuBaoCircle(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
-        initView();
+        initView(context);
     }
 
     @Override

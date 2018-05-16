@@ -24,4 +24,20 @@ public class ScreenUtil {
         val = val * 100d;
         return val.intValue();
     }
+
+
+    public static int getScreenWidth(Context context) {
+        WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        return windowManager.getDefaultDisplay().getWidth();
+    }
+
+    public static int getSceenHeight(Context context){
+        WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        return  windowManager.getDefaultDisplay().getHeight();
+    }
+
+    public static int dp2px(Context context,int values) {
+        float density = context.getResources().getDisplayMetrics().density;
+        return (int) (values * density + 0.5f);
+    }
 }
