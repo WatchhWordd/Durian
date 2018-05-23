@@ -1,4 +1,4 @@
-package com.durian.demo.presentation.viewshow;
+package com.durian.demo.presentation.view.dialview;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

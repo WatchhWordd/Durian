@@ -1,4 +1,4 @@
-package com.durian.demo.presentation.customviewpage;
+package com.durian.demo.presentation.view.customviewpage;
 
 /**
  * @author zhangyb

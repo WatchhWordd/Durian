@@ -1,4 +1,4 @@
-package com.durian.demo.presentation.viewshow;
+package com.durian.demo.presentation.view.dialview;
 
 /**
  * @author zhangyb

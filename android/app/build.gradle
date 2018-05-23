@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'channel'
 
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
@@ -16,8 +17,21 @@ android {
             abiFilters "armeabi-v7a"
         }
     }
+
+    signingConfigs {
+        release {
+            keyAlias 'text.keystore'
+            keyPassword '12345678'
+            storeFile file("../key/text.keystore")
+            storePassword '12345678'
+            v1SigningEnabled true
+            v2SigningEnabled false
+        }
+    }
+
     buildTypes {
         release {
+            signingConfig signingConfigs.release
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
@@ -44,6 +58,20 @@ android {
         resolutionStrategy.force 'com.squareup.okhttp3:okhttp:3.4.1'
     }
 
+    dexOptions {
+        javaMaxHeapSize "4g"
+    }
+
+    channel{
+        //指定渠道文件
+        channelFile = new File(project.rootDir, channel_file)
+        //多渠道包的输出目录，默认为new File(project.buildDir,"channel")
+        baseOutputDir = new File(project.buildDir,"channel")
+        //多渠道包的命名规则，默认为：${appName}-${versionName}-${versionCode}-${flavorName}-${buildType}
+        apkNameFormat ='${appName}-${versionName}-${versionCode}-${flavorName}-${buildType}'
+        //快速模式：生成渠道包时不进行校验（速度可以提升10倍以上）
+        isFastMode = true
+    }
 
 }
 
@@ -80,4 +108,5 @@ dependencies {
     implementation project(':clientcloud')
     implementation project(':durianlogger')
     implementation files('libs/BaiduLBS_Android.jar')
+    api 'com.leon.channel:helper:2.0.1'
 }

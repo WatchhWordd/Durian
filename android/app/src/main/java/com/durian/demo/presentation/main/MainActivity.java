@@ -28,7 +28,7 @@ import com.durian.demo.presentation.overview.OverViewFragment;
 import com.durian.demo.presentation.react.CalculatorReactActivity;
 import com.durian.demo.presentation.repositories.RepositoriesFragment;
 import com.durian.demo.presentation.stars.StarsFragment;
-import com.durian.demo.presentation.viewshow.ViewShowActivity;
+import com.durian.demo.presentation.view.ViewManagerActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,11 +37,10 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         DrawerLayout.DrawerListener {
 
     private static final int OVERLAY_PERMISSION_REQ_CODE = 0;
+    UserInfo userInfo;
     private MainContract.Presenter presenter;
-
     private Toolbar toolbar;
     private DrawerLayout drawerLayout;
-
     private TextView calculatorButton;
     private View overViewLayout;
     private ImageView overView;
@@ -54,8 +53,6 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     private View followingLayout;
     private ImageView followingView;
 
-    UserInfo userInfo;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,16 +61,6 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         initViews();
         new MainPresenter(this);
         presenter.start();
-    }
-
-    @Override
-    protected void onNewIntent(Intent intent) {
-        super.onNewIntent(intent);
-    }
-
-    @Override
-    public void setPresenter(MainContract.Presenter presenter) {
-        this.presenter = presenter;
     }
 
     @Override
@@ -127,7 +114,6 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         OverViewContract.Presenter presenter = (OverViewContract.Presenter) overViewFragment;
     }
 
-
     private void initTabLayout() {
         toolbar = (Toolbar) findViewById(R.id.id_main_tab);
         setSupportActionBar(toolbar);
@@ -171,15 +157,15 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
                     Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
                             Uri.parse("package:" + getPackageName()));
                     startActivityForResult(intent, OVERLAY_PERMISSION_REQ_CODE);
-                }else{
+                } else {
                     Intent intent = new Intent(this, CalculatorReactActivity.class);
                     startActivity(intent);
                 }
             }
         });
 
-        joinDataView.setOnClickListener(view->{
-            Intent intent = new Intent(this, ViewShowActivity.class);
+        joinDataView.setOnClickListener(view -> {
+            Intent intent = new Intent(this, ViewManagerActivity.class);
             startActivity(intent);
         });
     }
@@ -272,6 +258,16 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     }
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
+
+    @Override
+    public void setPresenter(MainContract.Presenter presenter) {
+        this.presenter = presenter;
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == android.R.id.home) {
@@ -305,12 +301,6 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
 
     }
 
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-    }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == OVERLAY_PERMISSION_REQ_CODE) {
@@ -320,5 +310,10 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
                 }
             }
         }
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
     }
 }

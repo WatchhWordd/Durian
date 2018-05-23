@@ -1,4 +1,4 @@
-package com.durian.demo.presentation.customviewpage;
+package com.durian.demo.presentation.view.dialview;
 
 import com.durian.demo.BasePresent;
 import com.durian.demo.BaseView;
@@ -6,11 +6,11 @@ import com.durian.demo.BaseView;
 /**
  * @author zhangyb
  * @description
- * @date 2018/5/16
+ * @date 2018/4/19
  */
-public class ViewPagerContract {
+public class ViewShowContract {
 
-    interface View extends BaseView<Presenter>{
+    interface View extends BaseView<ViewShowContract.Presenter>{
 
     }
 
