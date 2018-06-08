@@ -1,4 +1,4 @@
-package com.durian.demo.base.widget;
+package com.durian.demo.presentation.view.dialview.view;
 
 import android.animation.ValueAnimator;
 import android.annotation.SuppressLint;
@@ -78,8 +78,8 @@ public class ZhiFuBaoCircle extends View {
 
     private void initView(Context context) {
 
-        defaultSize = ScreenUtil.dp2px(context,300);
-        destCircle = ScreenUtil.dp2px(context,12);
+        defaultSize = ScreenUtil.dp2px(context, 300);
+        destCircle = ScreenUtil.dp2px(context, 12);
         //外层圆环画笔
         outPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         outPaint.setStrokeWidth(8);
@@ -269,6 +269,7 @@ public class ZhiFuBaoCircle extends View {
                 break;
             default:
                 result = defaultSize;
+                break;
         }
         return result;
     }

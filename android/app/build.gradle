@@ -105,7 +105,7 @@ dependencies {
     implementation dep.jodaTime
     implementation dep.rxrelay
     implementation dep.hotfix
-    implementation project(':clientcloud')
+    implementation dep.rxCloud
     implementation project(':durianlogger')
     implementation files('libs/BaiduLBS_Android.jar')
     api 'com.leon.channel:helper:2.0.1'

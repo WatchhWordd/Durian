@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="@android:color/holo_red_dark">
 
-    <com.durian.demo.base.widget.ZhiFuBaoCircle
+    <com.durian.demo.presentation.view.dialview.view.ZhiFuBaoCircle
         android:id="@+id/zhiFuView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

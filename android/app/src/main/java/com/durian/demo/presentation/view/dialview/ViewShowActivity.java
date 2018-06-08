@@ -5,7 +5,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
 import com.durian.demo.R;
-import com.durian.demo.base.widget.ZhiFuBaoCircle;
+import com.durian.demo.presentation.view.dialview.view.ZhiFuBaoCircle;
 
 /**
  * @author zhangyb
